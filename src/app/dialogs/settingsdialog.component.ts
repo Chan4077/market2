@@ -6,7 +6,7 @@ import { MdDialogRef } from '@angular/material';
 })
 
 export class SettingsDialog implements OnInit {
-  // isDarkTheme: boolean;
+  isDarkTheme: boolean;
   // email: string;
   settings: any;
   constructor(public dialogRef: MdDialogRef<SettingsDialog>) {}
@@ -21,5 +21,6 @@ export class SettingsDialog implements OnInit {
   }
   ngOnInit(): void {
     this.settings = JSON.parse(localStorage.getItem('settings')) || {'isDarkTheme': true, 'name': 'Lorem ipsum', 'email': 'johnappleseed@gmail.com', 'birthday': '2003-12-23', 'showDeveloper': false};
+    this.isDarkTheme = this.settings.isDarkTheme;
   }
 }

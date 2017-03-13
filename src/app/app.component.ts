@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 // Dialogs
 import { SettingsDialog } from './dialogs/settingsdialog.component';
 import { VersionDialog } from './dialogs/versiondialog.component';
+import { UrlDialog } from './dialogs/urldialog.component';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -59,6 +60,39 @@ export class AppComponent implements OnInit, OnDestroy {
             //     console.log('Cancelled dialog');
             // }
         })
+    }
+    /**
+     * Goes to specified url.
+     * @argument url: the specified url to go to
+     * @author Edric Chan
+     */
+    goToUrl(url: string): void {
+        if (this.settings.resetWarnings) {
+        let dialogRef = this.dialog.open(UrlDialog);
+        dialogRef.componentInstance.url = url;
+        dialogRef.afterClosed().subscribe(result => {
+            if (result == 'cancel') {
+                // Do nothing
+                this.snackbar.open('You cancelled the redirect');
+            } else if (result == 'redirect') {
+                if (this.settings.openNewTab) {
+                    console.debug('Opening '+url+' in a new tab.');
+                    window.open(
+                        url,
+                        '_blank'
+                    );
+
+                } else {
+                    window.location.href = url;
+                }
+            }
+        })
+        } else if (this.settings.openNewTab) {
+            window.open('Opening '+url+' in a new tab.');
+        } else {
+            console.debug('Loading: '+url);
+            window.location.href = url;
+        }
     }
     showVersionInfo() {
         this.dialog.open(VersionDialog);

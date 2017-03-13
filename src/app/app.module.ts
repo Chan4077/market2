@@ -22,6 +22,7 @@ import { MarketItemService } from './services/marketitem.service';
 import { SettingsDialog } from './dialogs/settingsdialog.component';
 import { ViewAuthorDialog } from './dialogs/viewauthor.component';
 import { VersionDialog } from './dialogs/versiondialog.component';
+import { UrlDialog } from './dialogs/urldialog.component';
 // Environment
 import { environment } from '../environments/environment';
 @NgModule({
@@ -33,7 +34,8 @@ import { environment } from '../environments/environment';
     // PageNotFoundComponent
     SettingsDialog,
     ViewAuthorDialog,
-    VersionDialog
+    VersionDialog,
+    UrlDialog
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,7 @@ import { environment } from '../environments/environment';
   ],
   providers: [SidenavService, MarketItemService],
   bootstrap: [AppComponent],
-  entryComponents: [SettingsDialog, ViewAuthorDialog, VersionDialog]
+  entryComponents: [SettingsDialog, ViewAuthorDialog, VersionDialog, UrlDialog]
 })
 export class AppModule {
   // constructor(overlayContainer: OverlayContainer) {

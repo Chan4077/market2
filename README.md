@@ -39,6 +39,7 @@ If you would like to contribute, please create a [new issue](https://github.com/
 - Same goes for PRs (pull requests).
 - Projects for this repo will be *COMING SOON*.
 - Status for website [here](https://github.com/Chan4077/future/blob/master/new/market2.md)
+
 ---
 ## A note of thanks
 :heart: Made with love by Github and Markdown

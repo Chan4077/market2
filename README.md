@@ -33,6 +33,9 @@ Done!
 If you would like to contribute, please create a [new issue](https://github.com/Chan4077/market2/issues/new) with the title "Contribute request" and explain why you would like to contribute. Please do not spam your request for contriuting, or else I will **immediately close the issue**. Alternatively, you may make a [PR (Pull Request)](https://github.com/Chan4077/market2/compare) stating your changes or fixes.
 
 ## NOTES
+- This repo will be updated quite often, so check that the issue that you *would* be reporting is not already fixed by a commit.
+- Same goes for PRs (pull requests).
+- Projects for this repo will be *COMING SOON*.
 
 ---
 ## A note of thanks

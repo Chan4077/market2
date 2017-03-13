@@ -17,11 +17,13 @@ If you want to build the source code, follow these steps:
 
 1. Clone or download to your desktop using the button Clone or download or use `git clone https://github.com/Chan4077/market2.git`.
 2. Run the following:
+
      ```bash
      cd path/to/market2
      npm install
      ng serve
      ```
+     
 3. Navigate to localhost:4200 and you should see the code there.
 Done!
 
@@ -45,3 +47,5 @@ If you would like to contribute, please create a [new issue](https://github.com/
 - [Github Page](https://chan4077.github.io)
 - [Inspirational Quotes](https://plus.google.com/collection/UZIolB)
 - [Follow me on Google+](https://plus.google.com/+EdricChan03)
+
+_(Why are there so many problems with code blocks??? :sweat:)_

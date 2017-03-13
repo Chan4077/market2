@@ -3,8 +3,10 @@ import { Observable } from 'rxjs/Rx';
 import { SidenavService } from './services/sidenav.service';
 import { Links } from './sidenav';
 import { MdDialog, MdDialogRef, MdDialogConfig, OverlayContainer, MdSnackBar, MdSnackBarRef } from '@angular/material';
-import { SettingsDialog } from './dialogs/settingsdialog.component';
 import { Router } from '@angular/router';
+// Dialogs
+import { SettingsDialog } from './dialogs/settingsdialog.component';
+import { VersionDialog } from './dialogs/versiondialog.component';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -57,6 +59,9 @@ export class AppComponent implements OnInit, OnDestroy {
             //     console.log('Cancelled dialog');
             // }
         })
+    }
+    showVersionInfo() {
+        this.dialog.open(VersionDialog);
     }
     getLinks(): void {
         this.sidenavService.getLinks().then(sidenavLinks => this.sidenavLinks = sidenavLinks);

@@ -1,4 +1,10 @@
-<h2 md-dialog-title>About This Site</h2>
+<md-toolbar color="primary">
+    <h2>About This Site</h2>
+    <span class="flex"></span>
+    <button md-icon-button (click)="dialogRef.close()" mdTooltip="Close Dialog" mdTooltipPosition="left">
+        <md-icon>close</md-icon>
+    </button>
+</md-toolbar>
 <md-dialog-content themeColor="isDarkTheme">
     <md-tab-group>
         <md-tab label="Site">

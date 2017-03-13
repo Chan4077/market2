@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 @Component({
-    selector: 'version-dialog',
-    templateUrl: './versiondialog.component.html'
+    selector: 'url-dialog',
+    templateUrl: './urldialog.component.html'
 })
 
 export class UrlDialog implements OnInit {

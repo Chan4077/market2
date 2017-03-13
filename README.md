@@ -1,10 +1,12 @@
 # Market2
 ## Table of contents
+- [Table of contents](#table-of-contents)
 - [Introduction](#introduction)
 - [Building the source code](#building-the-source-code)
 - [Contributing](#contributing)
 - [NOTES](#notes)
 - [A note of thanks](#a-note-of-thanks)
+- [Random stuff](#random-stuff)
 
 ---
 ## Introduction 
@@ -46,7 +48,7 @@ If you would like to contribute, please create a [new issue](https://github.com/
 :smile: Also to all those who stood by beside me for no matter what I do. And to you too, readers! If you ever made this far, congratulations! As such, you will get a :cookie:!
 
 ## Random stuff
-- NOTE: This won't be in the table of contents
+- ~~NOTE: This won't be in the table of contents~~ UPDATE: This will **be in the table of contents.**
 - [Text faces](textfa.ces)
 - [My blog](https://chanziyangedric.blogspot.com)
 - [Github Page](https://chan4077.github.io)

@@ -1,0 +1,71 @@
+<div class="start" *ngIf="showSpinner">
+    <img src="/assets/logo.png" alt="logo" class="logo">
+    <md-progress-spinner mode="indeterminate" color="accent" class="start-indicator"></md-progress-spinner>
+</div>
+<div [class.dark-theme]="isDarkTheme" class="content" [hidden]="showSpinner">
+    <md-sidenav-container fullscreen>
+        <md-sidenav #left mode="side" opened>
+            <md-toolbar color="accent">
+                Links
+            </md-toolbar>
+            <md-nav-list>
+                <a md-list-item *ngFor="let link of sidenavLinks" [routerLink]="[link.href]" (click)="left.close(); switchSite(link.name)">
+                    <md-icon md-list-avatar color="primary">{{link.icon}}</md-icon>
+                    <h3 md-line>{{link.name}}</h3>
+                </a>
+            </md-nav-list>
+        </md-sidenav>
+        <md-sidenav align="end" #right mode="side">
+            <md-tab-group>
+                <md-tab>
+                    <template md-tab-label>
+                        <md-icon class="tab-icon">chat_bubble</md-icon><span>Messages</span>
+                    </template>
+                    <h1>Chat</h1>
+                </md-tab>
+                <md-tab>
+                    <template md-tab-label>
+                        <md-icon class="tab-icon">shopping_cart</md-icon><span>Shopping list</span>
+                    </template>
+                    <span class="time">Time logged in: {{timeLoggedIn}}</span>
+                </md-tab>
+            </md-tab-group>
+        </md-sidenav>
+        <md-toolbar color="primary">
+            <button md-icon-button (click)="left.toggle()" mdTooltip="Sidenav" mdTooltipPosition="below">
+            <md-icon>menu</md-icon>
+        </button> Market <strong>&nbsp;2</strong>
+            <span class="flex"></span>
+            <!--<img md-card-avatar src="../../assets/avatars/default-avatar.png">
+            <span class="sign-in">Signed in as Test</span>
+            <button md-button>Sign Out</button>-->
+            <button md-icon-button [mdMenuTriggerFor]="more">
+                <md-icon>more_vert</md-icon>
+            </button>
+            <md-menu #more="mdMenu">
+                <button md-menu-item (click)="openSettings()">
+                    <md-icon>settings</md-icon>
+                    <span>Settings</span>
+                </button>
+                <button md-menu-item>
+                    <md-icon>info</md-icon>
+                    <span>Version Info</span>
+                </button>
+            </md-menu>
+            <button md-icon-button [mdMenuTriggerFor]="account">
+                <img src="../../assets/avatars/default-avatar.png" alt="Avatar" md-card-avatar>
+            </button>
+            <md-menu #account="mdMenu">
+                <button md-menu-item (click)="signOut()">
+                     <md-icon>exit_to_app</md-icon>
+                     <span>Log Out</span>
+                 </button>
+            </md-menu>
+            <button md-button (click)="right.toggle()" mdTooltip="Extra" mdTooltipPosition="left">Toogle Right</button>
+        </md-toolbar>
+        <router-outlet></router-outlet>
+    </md-sidenav-container>
+    <span class="app-action" *ngIf="router.url == '/market'">
+        <button md-fab (click)="addItem()" mdTooltip="New Item" mdTooltipPosition="above"><md-icon>add</md-icon></button>
+    </span>
+</div>

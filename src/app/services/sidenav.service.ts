@@ -1,0 +1,10 @@
+import { Injectable } from '@angular/core';
+
+import { Links } from '../sidenav';
+import { LINKS } from '../data/sidenav-data';
+@Injectable()
+export class SidenavService {
+  getLinks(): Promise<Links[]> {
+    return Promise.resolve(LINKS);
+  }
+}

@@ -1,0 +1,51 @@
+<div class="card-container">
+    <md-card *ngFor="let item of marketItems">
+        <md-card-header>
+            <img md-card-avatar src="/assets/avatars/{{item.userAvatar}}" onerror="this.src='/assets/avatars/default-avatar.png'">
+            <md-card-title *ngIf="item.user !=''">{{item.user}}</md-card-title>
+            <md-card-title *ngIf="item.user == ''" class="red-color">Unknown</md-card-title>
+            <md-card-subtitle *ngIf="item.job != ''">{{item.job}}</md-card-subtitle>
+            <md-card-subtitle *ngIf="item.job == ''" class="red-color">No Job</md-card-subtitle>
+            <span class="flex"></span>
+            <button md-icon-button [mdMenuTriggerFor]="more">
+                <md-icon>more_vert</md-icon>
+            </button>
+            <md-menu #more="mdMenu">
+                <button md-menu-item (click)="viewAuthor(item)">
+                    <md-icon>account_circle</md-icon>
+                    <span>View Profile</span>
+                </button>
+                <button md-menu-item>
+                    <md-icon>report</md-icon>
+                    <span>Report Abuse</span>
+                </button>
+                <button md-menu-item>
+                    <md-icon>thumb_down</md-icon>
+                    <span>Show fewer posts from {{item.user}}</span>
+                </button>
+                <button md-menu-item>
+                    <md-icon>cancel</md-icon>
+                    <span>Block {{item.user}}</span>
+                </button>
+            </md-menu>
+        </md-card-header>
+        <img md-card-image [alt]="item.name" src="/assets/items/{{item.imgSource}}" *ngIf="item.hasImage">
+        <md-card-title>{{item.name}}</md-card-title>
+        <md-card-content>
+            {{item.description}}
+            <br>
+            <strong>Price: </strong> {{item.price | currency:USD:false}}
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button color="primary">Buy</button>
+            <button md-button color="accent">More info</button>
+            <span class="flex"></span>
+            <button md-icon-button color="primary" mdTooltip="View Comments" mdTooltipPosition="left" (click)="showComments(item)">
+                <md-icon>comment</md-icon>
+            </button>
+        </md-card-actions>
+        <div class="md-card-comments" [hidden]="false">
+            Some text
+        </div>
+    </md-card>
+</div>

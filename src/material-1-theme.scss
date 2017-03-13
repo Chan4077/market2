@@ -1,0 +1,24 @@
+@import '~@angular/material/core/theming/_all-theme';
+
+@include mat-core();
+// Light theme
+// Primary (Light)
+$market-app-primary: mat-palette($mat-cyan);
+// Accent (Light)
+$market-app-accent: mat-palette($mat-amber);
+// Register as light theme
+$market-app-theme: mat-light-theme($market-app-primary, $market-app-accent);
+// Register theme
+@include angular-material-theme($market-app-theme);
+// Make all md-buttons uppercase
+button[md-button], button[md-raised-button] {
+    text-transform: uppercase;
+}
+.dark-theme {
+// Dark theme
+$market-app-dark-primary: mat-palette($mat-pink, 700);
+$market-app-dark-accent: mat-palette($mat-blue-grey);
+$market-app-dark-theme: mat-dark-theme($market-app-dark-primary, $market-app-dark-accent);
+
+@include angular-material-theme($market-app-dark-theme);
+}

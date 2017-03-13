@@ -1,0 +1,50 @@
+<h2 md-dialog-title>Preferences</h2>
+<md-dialog-content themeColor="isDarkTheme">
+    <md-tab-group>
+        <md-tab label="General">
+            <h2>General Preferences</h2>
+            <md-checkbox [(ngModel)]="settings.isDarkTheme">Enable Dark Mode</md-checkbox>
+            <br />
+            <md-checkbox [(ngModel)]="settings.showGreeting">Show Greeting on load</md-checkbox>
+        </md-tab>
+        <md-tab label="Account">
+            <h2>Account Preferences</h2>
+            <strong>Name</strong>
+            <br />
+            <md-input-container class="flex">
+                <input mdInput placeholder="Name" [(ngModel)]="settings.name"/>
+            </md-input-container>
+            <br />
+            <strong>Email</strong>
+            <br />
+            <md-input-container class="flex">
+                <input mdInput placeholder="Email" type="email" [(ngModel)]="settings.email"/>
+            </md-input-container>
+            <br />
+            <p class="note"><strong>NOTE:</strong> The <code>md-datepicker</code> directive is currently unavailable. As such, I will be using <code>&lt;input type="datepicker" /&gt;</code></p>
+            <br />
+            <strong>Birthday</strong>
+            <md-input-container class="flex" dividerColor="accent">
+                <input mdInput placeholder="Birthday" type="date" [(ngModel)]="settings.birthday"/>
+            </md-input-container>
+        </md-tab>
+        <md-tab label="Experimental">
+            <h2>Experimental Preferences</h2>
+            <md-input-container>
+                <input mdInput placeholder="Color" value="Default">
+            </md-input-container>
+            <br />
+            <md-checkbox [(ngModel)]="settings.showDeveloper" color="warn">Show Developer Tab</md-checkbox>
+        </md-tab>
+        <md-tab label="Developer" *ngIf="settings.showDeveloper">
+            <p><strong>NOTE:</strong> This stuff will be stored in <code>localStorage</code>!</p>
+        </md-tab>
+    </md-tab-group>
+    <p class="note">Please refresh your page to apply changes.</p>
+</md-dialog-content>
+<md-dialog-actions>
+    <button md-button color="warn" (click)="clearSettings(); dialogRef.close('clear')">Clear Settings</button>
+    <span class="flex"></span>
+    <button md-button color="primary" (click)="dialogRef.close('cancel')">Cancel</button>
+    <button md-raised-button color="primary" (click)="dialogRef.close(settings)">Save</button>
+</md-dialog-actions>

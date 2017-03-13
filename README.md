@@ -17,11 +17,11 @@ If you want to build the source code, follow these steps:
 
 1. Clone or download to your desktop using the button Clone or download or use `git clone https://github.com/Chan4077/market2.git`.
 2. Run the following:
-```bash
-cd path/to/market2
-npm install
-ng serve
-```
+    ```bash
+    cd path/to/market2
+    npm install
+    ng serve
+    ```
 3. Navigate to localhost:4200 and you should see the code there.
 Done!
 

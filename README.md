@@ -21,7 +21,7 @@ If you want to build the source code, follow these steps:
      ```bash
      cd path/to/market2 # Replace with your actual path
      npm install        # Used to install the dependencies
-     ng serve           # Serve using the @angular/cli 
+     ng serve           # Serve using the @angular/cli 
      ```
      
      > NOTE: If you don't have `@angular/cli`, please view the instructions to install it: [wiki](https://github.com/angular/angular-cli/wiki)

@@ -32,7 +32,8 @@ import { environment } from '../environments/environment';
     AccountComponent,
     // PageNotFoundComponent
     SettingsDialog,
-    ViewAuthorDialog
+    ViewAuthorDialog,
+    VersionDialog
   ],
   imports: [
     BrowserModule,

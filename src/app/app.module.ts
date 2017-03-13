@@ -21,6 +21,7 @@ import { MarketItemService } from './services/marketitem.service';
 // App dialogs
 import { SettingsDialog } from './dialogs/settingsdialog.component';
 import { ViewAuthorDialog } from './dialogs/viewauthor.component';
+import { VersionDialog } from './dialogs/versiondialog.component';
 // Environment
 import { environment } from '../environments/environment';
 @NgModule({
@@ -37,13 +38,13 @@ import { environment } from '../environments/environment';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
+    MaterialModule,
     routing,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [SidenavService, MarketItemService],
   bootstrap: [AppComponent],
-  entryComponents: [SettingsDialog, ViewAuthorDialog]
+  entryComponents: [SettingsDialog, ViewAuthorDialog, VersionDialog]
 })
 export class AppModule {
   // constructor(overlayContainer: OverlayContainer) {

@@ -1,7 +1,7 @@
 # Market2
 ## Table of contents
 - [Introduction](#introduction)
-- [Buildiing the source code](#building-the-source-code)
+- [Building the source code](#building-the-source-code)
 - [Contributing](#contributing)
 - [NOTES](#notes)
 - [A note of thanks](#a-note-of-thanks)
@@ -19,11 +19,12 @@ If you want to build the source code, follow these steps:
 2. Run the following:
 
      ```bash
-     cd path/to/market2
-     npm install
-     ng serve
-     ```
+     cd path/to/market2 # Replace with your actual path
+     npm install        # Used to install the dependencies
+     ng serve           # Serve using the @angular/cli 
+     ```
      
+     > NOTE: If you don't have `@angular/cli`, please view the instructions to install it: [wiki](https://github.com/angular/angular-cli/wiki)
 3. Navigate to localhost:4200 and you should see the code there.
 Done!
 

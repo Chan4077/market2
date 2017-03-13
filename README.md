@@ -38,7 +38,7 @@ If you would like to contribute, please create a [new issue](https://github.com/
 - This repo will be updated quite often, so check that the issue that you *would* be reporting is not already fixed by a commit.
 - Same goes for PRs (pull requests).
 - Projects for this repo will be *COMING SOON*.
-
+- Status for website [here](https://github.com/Chan4077/future/blob/master/new/market2.md)
 ---
 ## A note of thanks
 :heart: Made with love by Github and Markdown

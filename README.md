@@ -26,27 +26,26 @@ If you want to build the source code, follow these steps:
      ng serve           # Serve using the @angular/cli 
      ```
      
-     > NOTE: If you don't have `@angular/cli`, please view the instructions to install it: [wiki](https://github.com/angular/angular-cli/wiki)
+     > NOTE: If you don't have `@angular/cli`, please view the [wiki](https://github.com/angular/angular-cli/wiki) to install it
      
-3. Navigate to localhost:4200 and you should see the code there.
+3. Navigate to `localhost:4200` and you should see the code there.
 Done!
 
 ## Contributing
 If you would like to contribute, please create a [new issue](https://github.com/Chan4077/market2/issues/new) with the title "Contribute request" and explain why you would like to contribute. Please do not spam your request for contriuting, or else I will **immediately close the issue**. Alternatively, you may make a [PR (Pull Request)](https://github.com/Chan4077/market2/compare) stating your changes or fixes.
 
 ## NOTES
-- This repo will be updated quite often, so check that the issue that you *would* be reporting is not already fixed by a commit.
+- This repo will be ~~updated quite often~~ updated when needed _(such as a fix, release, etc.)_, so check that the issue that you *would* be reporting is not already fixed by a commit.
 - Same goes for PRs (pull requests).
 - Projects for this repo will be *COMING SOON*.
 - Status for website [here](https://github.com/Chan4077/future/blob/master/new/market2.md)
 
+
 ---
 ## A note of thanks
-:heart: Made with love by Github and Markdown
+:heart: Made with love using Markdown and Github's online editor
 
-:smile: Thanks to all the demos online such as the [angularfire2 Wiki](https://github.com/angular/angularfire2/wiki), [Angular Material 2](https://material.angular.io), [Angular 2](https://angular.io) and other code examples and samples online. Your work is **truly appreciated**. :tada:
-
-:smile: Also to all those who stood by beside me for no matter what I do. And to you too, readers! If you ever made this far, congratulations! As such, you will get a :cookie:!
+:smile: Thanks to all the demos online such as the [angularfire2 Wiki](https://github.com/angular/angularfire2/wiki), [Angular Material 2](https://material.angular.io), [Angular 4](https://angular.io) and other code examples and samples online. Your work is **truly appreciated**. :tada:
 
 ## Random stuff
 - ~~NOTE: This won't be in the table of contents~~ UPDATE: This will **be in the table of contents.**

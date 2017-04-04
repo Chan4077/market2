@@ -18,13 +18,15 @@ const map: any = {
   '@angular/http': 'vendor/@angular/http/bundles/http.umd.js',
   '@angular/router': 'vendor/@angular/router/bundles/router.umd.js',
   '@angular/forms': 'vendor/@angular/forms/bundles/forms.umd.js',
-  '@angular/material': 'vendor/@angular/material/bundles/material.umd.js'
+  '@angular/material': 'vendor/@angular/material/bundles/material.umd.js',
+  'angular2-highlight-js': 'vendor/angular2-highlight-js/lib'
 };
 
 /** User packages configuration. */
 const packages: any = {
   'app': {main: 'main', defaultExtension: 'js'},
-  'rxjs': {main: 'Rx.js', defaultExtension: 'js'}
+  'rxjs': {main: 'Rx.js', defaultExtension: 'js'},
+  'angular2-highlight-js': { main: 'highlight-js.module', defaultExtension: 'js'}
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

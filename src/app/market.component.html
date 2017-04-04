@@ -1,3 +1,4 @@
+<!--<market-sort-nav></market-sort-nav>-->
 <div class="card-container">
     <md-card *ngFor="let item of marketItems">
         <md-card-header>
@@ -6,7 +7,7 @@
             <md-card-title *ngIf="item.user == ''" class="red-color">Unknown</md-card-title>
             <md-card-subtitle *ngIf="item.job != ''">{{item.job}}</md-card-subtitle>
             <md-card-subtitle *ngIf="item.job == ''" class="red-color">No Job</md-card-subtitle>
-            <span class="flex"></span>
+            <span flex></span>
             <button md-icon-button [mdMenuTriggerFor]="more">
                 <md-icon>more_vert</md-icon>
             </button>
@@ -29,7 +30,7 @@
                 </button>
             </md-menu>
         </md-card-header>
-        <img md-card-image [alt]="item.name" src="/assets/items/{{item.imgSource}}" *ngIf="item.hasImage">
+        <img md-card-image [alt]="item.name" [src]="'assets/items/' + item.imgSource" *ngIf="item.hasImage">
         <md-card-title>{{item.name}}</md-card-title>
         <md-card-content>
             {{item.description}}

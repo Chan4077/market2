@@ -3,9 +3,12 @@ import { Injectable } from '@angular/core';
 import { Item } from '../marketitems';
 import { ITEMS } from '../data/marketitems-data';
 
+// import { AngularFire } from 'angularfire2';
+
 @Injectable()
 export class MarketItemService {
-  getLinks(): Promise<Item[]> {
+  // constructor(private af: AngularFire){}
+  getMarketItems(): Promise<Item[]> {
     return Promise.resolve(ITEMS);
   }
 }

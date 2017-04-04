@@ -1,15 +1,18 @@
-import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewContainerRef, Inject, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { SidenavService } from './services/sidenav.service';
 import { Links } from './sidenav';
 import { MdDialog, MdDialogRef, MdDialogConfig, OverlayContainer, MdSnackBar, MdSnackBarRef } from '@angular/material';
 import { Router } from '@angular/router';
+import { storage } from 'firebase';
 // Dialogs
 import { SettingsDialog } from './dialogs/settingsdialog.component';
 import { VersionDialog } from './dialogs/versiondialog.component';
 import { UrlDialog } from './dialogs/urldialog.component';
+// Services
+import { SidenavService } from './services/sidenav.service';
+import { UrlDialogService } from './services/urldialog.service';
 @Component({
-    selector: 'app-root',
+    selector: 'market2-app',
     templateUrl: './app.component.html',
     providers: [SidenavService]
 })
@@ -25,8 +28,12 @@ export class AppComponent implements OnInit, OnDestroy {
     // overlayContainer.themeClass = 'dark-theme';
     // private events: string[] = [];
     // private subscription: Subscription;
-    constructor(private sidenavService: SidenavService, public dialog: MdDialog, public overlayContainer: OverlayContainer, public snackbar: MdSnackBar, private router: Router) {}
-
+    @ViewChild('left') public leftSidenav;
+    constructor(private sidenavService: SidenavService, public dialog: MdDialog, public overlayContainer: OverlayContainer, public snackbar: MdSnackBar, private router: Router, private urlDialogService: UrlDialogService) {
+    }
+    refresh() {
+        window.location.reload(true);
+    }
     openSettings() {
         let dialogRef = this.dialog.open(SettingsDialog);
         dialogRef.afterClosed().subscribe(result => {
@@ -39,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
                 // Sets localStorage settings to value on `ngOnInit()`
                 localStorage.setItem('settings', JSON.stringify(this.settings));
                 console.log('User clicked cancel. Reverting to initial settings in localStorage.');
+                this.snackbar.open('Settings were reverted', null, { duration: 5000 });
             } else if (result == 'clear') {
                 // Do nothing
                 console.log('Settings cleared!');
@@ -61,38 +69,8 @@ export class AppComponent implements OnInit, OnDestroy {
             // }
         })
     }
-    /**
-     * Goes to specified url.
-     * @argument url: the specified url to go to
-     * @author Edric Chan
-     */
-    goToUrl(url: string): void {
-        if (this.settings.resetWarnings) {
-        let dialogRef = this.dialog.open(UrlDialog);
-        dialogRef.componentInstance.url = url;
-        dialogRef.afterClosed().subscribe(result => {
-            if (result == 'cancel') {
-                // Do nothing
-                this.snackbar.open('You cancelled the redirect');
-            } else if (result == 'redirect') {
-                if (this.settings.openNewTab) {
-                    console.debug('Opening '+url+' in a new tab.');
-                    window.open(
-                        url,
-                        '_blank'
-                    );
-
-                } else {
-                    window.location.href = url;
-                }
-            }
-        })
-        } else if (this.settings.openNewTab) {
-            window.open('Opening '+url+' in a new tab.');
-        } else {
-            console.debug('Loading: '+url);
-            window.location.href = url;
-        }
+    openUrl(url: string) {
+        this.urlDialogService.goToUrl(url);
     }
     showVersionInfo() {
         this.dialog.open(VersionDialog);
@@ -103,10 +81,13 @@ export class AppComponent implements OnInit, OnDestroy {
     switchSite(name: string): void {
         this.snackbar.open("Navigated to " + name, null, { duration: 2000 });
     }
+    addItem() {
+        console.info('You triggered the new item button!');
+    }
     ngOnInit(): void {
         // Starts a timer, counting every second
         let timer = Observable.timer(0, 1000);
-        timer.subscribe(t=>this.timeLoggedIn = t);
+        timer.subscribe(t => this.timeLoggedIn = t);
         this.getLinks();
         this.settings = JSON.parse(localStorage.getItem('settings')) || { 'isDarkTheme': false, 'email': 'johnappleseed@gmail.com', 'name': 'John Appleseed', 'birthday': '2017-03-04', 'showDeveloper': false, 'showGreeting': true };
         console.log(this.settings);
@@ -122,10 +103,11 @@ export class AppComponent implements OnInit, OnDestroy {
         setTimeout(() => {
             this.showSpinner = false;
             if (this.showGreeting) {
-                this.snackbar.open('Signed in as admin@market.com', null, { duration: 2000 })
+                this.snackbar.open('Signed in as '+this.settings.email, null, { duration: 2000 })
             }
         }, 2000);
         // this.subscription = this.fabService.actionStream.subscribe(event => this.events.push(event));
+        
     }
 
     ngOnDestroy() {

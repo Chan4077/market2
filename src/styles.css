@@ -76,24 +76,21 @@ md-icon.pink {
     color: pink;
 }
 
-.flex {
-    flex: 1 1 auto;
-}
-
 .sign-in {
     font-size: 10px;
 }
 .content {
     overflow: auto !important;
 }
-div.mat-tab-body-content {
+/*div.mat-tab-body-content {
     margin: 20px;
-}
+}*/
 .mat-list-avatar {
     height: 25px !important;
+    width: 25px !important;
 }
 .note {
-    color: var(--color-red);;
+    color: var(--color-red);
 }
 
 .start-indicator {
@@ -129,4 +126,16 @@ div.mat-tab-body-content {
   position: fixed;
   bottom: 20px;
   right: 20px;
+}
+.top-toolbar {
+    position: sticky;
+    /* For Safari */
+    position: -webkit-sticky;
+    top: 0;
+}
+.mat-tab-body-content {
+    padding-left: 10px;
+}
+.bold:not(.overwrite-bold) {
+    font-weight: bold;
 }

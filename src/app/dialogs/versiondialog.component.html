@@ -1,10 +1,4 @@
-<md-toolbar color="primary">
-    <h2>About This Site</h2>
-    <span class="flex"></span>
-    <button md-icon-button (click)="dialogRef.close()" mdTooltip="Close Dialog" mdTooltipPosition="left">
-        <md-icon>close</md-icon>
-    </button>
-</md-toolbar>
+<h1 md-dialog-title>Versions</h1>
 <md-dialog-content themeColor="isDarkTheme">
     <md-tab-group>
         <md-tab label="Site">
@@ -14,9 +8,12 @@
         <md-tab label="Dependencies">
             <h2>Dependencies used</h2>
             <!--TODO: Add dependencies used-->
+            <!--{{depdencies}}-->
         </md-tab>
     </md-tab-group>
 </md-dialog-content>
 <md-dialog-actions>
-    <button md-raised-button color="primary" (click)="dialogRef.close()">Save</button>
+    <button md-button color="primary" md-dialog-close>Close</button>
+    <span class="flex"></span>
+    <button md-button color="accent" (click)="openUrl('https://github.com/Chan4077/market2')">View Source Code</button>
 </md-dialog-actions>

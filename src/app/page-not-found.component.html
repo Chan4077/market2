@@ -4,21 +4,9 @@
     </md-card-header>
     <md-card-title>Error 404</md-card-title>
     <md-card-content>
-        <p>For some reason, this site has been magically disappeared from view.</p>
-        <p>Here are some ways to solve this:</p>
-        <ul>
-            <li><a href="">Get help from aliens</a></li>
-            <li>Sit here and wait for the site to <em>magically</em> appear</li>
-            <li>Spamming the refresh button or triggering the refresh shortcut</li>
-            <li>Spend the day outside</li>
-            <li>Watch some TV</li>
-            <li>Watch <a href="https://youtube.com">YouTube</a> videos</li>
-            <li>Check if you were <em>smart</em> enough to leave the wifi connection off</li>
-        </ul>
+        <p>Error 404: URL not found.</p>
+        <p>The site you are accessing - <strong>{{router.url}}</strong> is not available.</p>
+        <p>Please contact the admin for more information.</p>
+        <p>Please click on the <md-icon>refresh</md-icon> button to refresh.</p>
     </md-card-content>
-    <md-card-actions align="end">
-        <button md-button color="primary" (click)="window.location.refresh(true)">REFRESH</button>
-        <button md-button color="accent" href="https://youtube.com">Take me to YouTube</button>
-        <button md-button color="warn">Rage mode</button>
-    </md-card-actions>
 </md-card>

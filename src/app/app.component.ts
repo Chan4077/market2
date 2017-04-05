@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewContainerRef, Inject, ViewChild } fro
 import { Observable } from 'rxjs/Rx';
 import { Links } from './sidenav';
 import { MdDialog, MdDialogRef, MdDialogConfig, OverlayContainer, MdSnackBar, MdSnackBarRef } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { storage } from 'firebase';
 // Dialogs
 import { SettingsDialog } from './dialogs/settingsdialog.component';
@@ -11,6 +11,8 @@ import { UrlDialog } from './dialogs/urldialog.component';
 // Services
 import { SidenavService } from './services/sidenav.service';
 import { UrlDialogService } from './services/urldialog.service';
+declare let ga: Function;
+
 @Component({
     selector: 'market2-app',
     templateUrl: './app.component.html',
@@ -29,7 +31,13 @@ export class AppComponent implements OnInit, OnDestroy {
     // private events: string[] = [];
     // private subscription: Subscription;
     @ViewChild('left') public leftSidenav;
-    constructor(private sidenavService: SidenavService, public dialog: MdDialog, public overlayContainer: OverlayContainer, public snackbar: MdSnackBar, private router: Router, private urlDialogService: UrlDialogService) {
+    constructor(private sidenavService: SidenavService, public dialog: MdDialog, public overlayContainer: OverlayContainer, public snackbar: MdSnackBar, public router: Router, private urlDialogService: UrlDialogService) {
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                ga('set', 'page', event.urlAfterRedirects);
+                ga('send', 'pageview');
+            }
+        })
     }
     refresh() {
         window.location.reload(true);

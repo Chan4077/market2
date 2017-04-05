@@ -55,4 +55,4 @@ If you would like to contribute, please create a [new issue](https://github.com/
 - [Inspirational Quotes](https://plus.google.com/collection/UZIolB)
 - [Follow me on Google+](https://plus.google.com/+EdricChan03)
 
-_(Why are there so many problems with code blocks??? :sweat:)_
+_(Why are there so many problems with code blocks??? (For Markdown where I tried to put a code block in a list...):sweat:)_

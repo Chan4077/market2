@@ -14,6 +14,7 @@ import { AboutComponent } from './about.component';
 import { AccountComponent } from './account.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { AppComponent } from './app.component';
+import { NewPostComponent } from './new.component';
 // App modules
 import { routing } from './app.routes';
 // App directives
@@ -29,6 +30,12 @@ import { VersionDialog } from './dialogs/versiondialog.component';
 import { UrlDialog } from './dialogs/urldialog.component';
 // Environment
 import { environment } from '../environments/environment';
+/**
+ * The module to initialize with
+ * @version 1.0.2
+ * @author Edric Chan
+ * @type @NgModule
+ */
 @NgModule({
   declarations: [
     MarketComponent,
@@ -39,6 +46,7 @@ import { environment } from '../environments/environment';
     NewestMarketSortComponent,
     PopularMarketSortComponent,
     MarketNavComponent,
+    NewPostComponent,
     // Directives
     FlexDirective,
     // Dialogs

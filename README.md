@@ -32,7 +32,7 @@ If you want to build the source code, follow these steps:
 Done!
 
 ## Contributing
-If you would like to contribute, please create a [new issue](https://github.com/Chan4077/market2/issues/new) with the title "Contribute request" and explain why you would like to contribute. Please do not spam your request for contriuting, or else I will **immediately close the issue**. Alternatively, you may make a [PR (Pull Request)](https://github.com/Chan4077/market2/compare) stating your changes or fixes.
+If you would like to contribute, please create a [new issue](https://github.com/Chan4077/market2/issues/new) with the title "Contribute request" and explain why you would like to contribute. Please do not spam your request for contributing, or else I will **immediately close the issue**. Alternatively, you may fork a repo, make your changes and create a [PR (Pull Request)](https://github.com/Chan4077/market2/compare) stating your changes or fixes.
 
 ## NOTES
 - This repo will be ~~updated quite often~~ updated when needed _(such as a fix, release, etc.)_, so check that the issue that you *would* be reporting is not already fixed by a commit.

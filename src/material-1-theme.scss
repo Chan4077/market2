@@ -23,8 +23,8 @@ $market-app-dark-theme: mat-dark-theme($market-app-dark-primary, $market-app-dar
 @include angular-material-theme($market-app-dark-theme);
     md-nav-list {
         [md-list-item].active-link {
-                background-color: mat-color($market-app-dark-accent);
-                color: mat-color($market-app-dark-accent, default-contrast);
+                background-color: mat-color($market-app-dark-accent) !important;
+                color: mat-color($market-app-dark-accent, default-contrast) !important;
         }
     }
     p, h1, h2, h3, h4, h5, h6 {
@@ -33,8 +33,8 @@ $market-app-dark-theme: mat-dark-theme($market-app-dark-primary, $market-app-dar
 }
 md-nav-list {
     [md-list-item].active-link {
-            background-color: mat-color($market-app-accent);
-            color: mat-color($market-app-accent, default-contrast);
+            background-color: mat-color($market-app-accent) !important;
+            color: mat-color($market-app-accent, default-contrast) !important;
     }
 }
     p, h1, h2, h3, h4, h5, h6 {

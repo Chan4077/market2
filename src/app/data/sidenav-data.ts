@@ -3,19 +3,19 @@ export const LINKS: Links[] = [
     {
         name: "My Account",
         description: "Edit my account information",
-        icon: "account_box",
+        icon: "account-box",
         href: "/account"
     },
     {
         name: "Store",
         description: "Checkout your items from the store",
-        icon: "shopping_cart",
-        href: "/"
+        icon: "cart",
+        href: "/market"
     },
     {
         name: "About",
         description: "About this site",
-        icon: "info",
+        icon: "information",
         href: "/about"
     }
 ]

@@ -1,19 +1,17 @@
 <h1 md-dialog-title>Versions</h1>
 <md-dialog-content themeColor="isDarkTheme">
-    <md-tab-group>
+    <md-tab-group dynamicHeight>
         <md-tab label="Site">
             <h2>Site Version</h2>
             <p>This site is currently running: {{siteVersion}}</p>
         </md-tab>
         <md-tab label="Dependencies">
             <h2>Dependencies used</h2>
-            <!--TODO: Add dependencies used-->
-            <!--{{depdencies}}-->
         </md-tab>
     </md-tab-group>
 </md-dialog-content>
 <md-dialog-actions>
     <button md-button color="primary" md-dialog-close>Close</button>
-    <span class="flex"></span>
+    <span fxFlex></span>
     <button md-button color="accent" (click)="openUrl('https://github.com/Chan4077/market2')">View Source Code</button>
 </md-dialog-actions>

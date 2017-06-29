@@ -11,7 +11,14 @@ export const ITEMS: Item[] = [
         job: "Designer of website",
         tags: ['technology', 'Apple', 'macbook-pro'],
         hasImage: true,
-        imgSource: "macbook-pro-13-inch-2016.jpg"
+        imgSource: "macbook-pro-13-inch-2016.jpg",
+        comments: [
+            { author: 'Test', comment: 'Lol', avatar: 'assets/avatars/default-avatar.png' },
+            { author: 'Another user with a long username and should not even exist', comment: 'Lol this is some extremely content! BTW, I have quite a long username!', avatar: 'assets/avatars/default-avatar.png' },
+            { author: 'Test', comment: 'Lol', avatar: 'assets/avatars/default-avatar.png' },
+            { author: 'Test', comment: 'Lol', avatar: 'assets/avatars/default-avatar.png' },
+            { author: 'Test', comment: 'Lol', avatar: 'assets/avatars/default-avatar.png' }
+        ]
     },
     {
         name: "50 GB Google Drive Storage",
@@ -23,7 +30,10 @@ export const ITEMS: Item[] = [
         job: "",
         tags: ['google-drive', 'drive-storage', 'promo-code'],
         hasImage: false,
-        imgSource: ""
+        imgSource: "",
+        comments: [
+            { author: 'Test', comment: 'Lol' }
+        ]
     },
     {
         name: "Visual Studio 2017",
@@ -35,7 +45,10 @@ export const ITEMS: Item[] = [
         job: "Beginner",
         tags: ['promo-code', 'discount', 'technology', 'coding'],
         hasImage: false,
-        imgSource: ""
+        imgSource: "",
+        comments: [
+            { author: 'Test', comment: 'Lol' }
+        ]
     },
     {
         name: "Getting Started with Javascript - 9th Edition",
@@ -47,6 +60,9 @@ export const ITEMS: Item[] = [
         job: "Help Expert",
         tags: ['javascript', 'technology', 'getting-started', 'books'],
         hasImage: false,
-        imgSource: ""
+        imgSource: "",
+        comments: [
+            { author: 'Test', comment: 'Lol' }
+        ]
     }
 ]

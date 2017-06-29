@@ -1,3 +1,5 @@
+import { SharedService } from './services/shared.service';
+import { NewPostDialog } from './dialogs/newpost.component';
 import { Component, OnInit, ViewContainerRef, Inject, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Links } from './sidenav';
@@ -20,24 +22,49 @@ declare let ga: Function;
 })
 
 export class AppComponent implements OnInit {
+    lastSeen: Date = new Date();
     sidenavLinks: Links[];
     isDarkTheme: boolean = false;
     showGreeting: boolean = true;
     showSpinner: boolean;
     settings: any;
     timeLoggedIn: number;
+    chats: any;
     // result: any;
     // overlayContainer.themeClass = 'dark-theme';
     // private events: string[] = [];
     // private subscription: Subscription;
     @ViewChild('left') public leftSidenav;
-    constructor(private sidenavService: SidenavService, public dialog: MdDialog, public overlayContainer: OverlayContainer, public snackbar: MdSnackBar, public router: Router, private urlDialogService: UrlDialogService) {
+    constructor(private sidenavService: SidenavService, public dialog: MdDialog, public overlayContainer: OverlayContainer, public snackbar: MdSnackBar, public router: Router, private urlDialogService: UrlDialogService, private sharedService: SharedService) {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 ga('set', 'page', event.urlAfterRedirects);
                 ga('send', 'pageview');
             }
         })
+    }
+    /**
+     * Shows a custom snackbar
+     * @see MdSnackbarRef
+     * @see SharedService#showCustomSnackbar
+     * @version 1.2.2
+     * @param {string} snackbarContent The snackbar content
+     * @param {boolean} isHtml Whether content is HTML (Default: false)
+     * @param {number} duration Duration to show the snackbar (Default: 5000)
+     */
+    showCustomSnackbar(snackbarContent: string, isHtml: boolean = false, duration: number = 5000) {
+        this.sharedService.showCustomSnackbar(snackbarContent, isHtml, 5000);
+    }
+    /**
+     * Shows a warning snackbar
+     * @see MdSnackbarRef
+     * @see SharedServive#showWarningSnackbar
+     * @version 1.2.2
+     * @param {string} snackbarContent The snackbar content
+     * @param {number} duration Duration to show the snackbar (Default: 8000)
+     */
+    showWarningSnackbar(snackbarContent: string, duration: number = 8000) {
+        this.sharedService.showWarningSnackbar(snackbarContent, 8000);
     }
     /**
      * Refreshes the page
@@ -47,7 +74,16 @@ export class AppComponent implements OnInit {
      * @description Uses `window.locatiob.reload(true)`, where passing in `true` will force-reload
      */
     refresh() {
-        window.location.reload(true);
+        let refreshDialog = this.sharedService.showAlertDialog('Are you sure you want to refresh?<br>All unsaved changes will be lost.', 'end');
+        refreshDialog.subscribe(result => {
+            if (result == 'cancel') {
+                // Do nothing
+            } else if (result == 'ok') {
+                window.location.reload(true);
+            } else {
+                throw new ReferenceError("result is invalid.");
+            }
+        })
     }
     /**
      * Opens the `SettingsDialog`
@@ -75,13 +111,20 @@ export class AppComponent implements OnInit {
             }
         })
     }
+    getSidenavMode(): string {
+        if (this.sharedService.detectIsMobile()) {
+            return "over";
+        } else {
+            return "side";
+        }
+    }
     /**
      * Goes to the url specified
      * @version 1.0.2
      * @author Edric Chan
      * @example `<button md-button (click)="openUrl('https://example.com')">Go to url</button>`
      * @description Opens a url via a dialog which states that the he/she is being redirected to another website
-     * @param {url:string} The url to redirect to 
+     * @param {string} url The url to redirect to 
      */
     openUrl(url: string) {
         this.urlDialogService.goToUrl(url);
@@ -113,7 +156,7 @@ export class AppComponent implements OnInit {
      * @author Edric Chan
      * @example `<md-list-item (click)="switchSite(links.text)">Some text</md-list-item>`
      * @description Opens a sidenav when on click to navigate
-     * @param {name:string} The name of the site being navigated to 
+     * @param {string} name The name of the site being navigated to 
      * @returns null
      */
     switchSite(name: string): void {
@@ -126,7 +169,11 @@ export class AppComponent implements OnInit {
      * @description Just logs to the console...
      */
     addItem() {
-        console.info('You triggered the new item button!');
+        let dialogRef = this.dialog.open(NewPostDialog);
+        dialogRef.afterClosed().subscribe(result => {
+            /** @todo Update this */
+            console.log(result);
+        })
     }
     /**
      * On init code
@@ -135,7 +182,17 @@ export class AppComponent implements OnInit {
      * @description Init code which is required when `AppComponent` implements `OnInit`
      */
     ngOnInit(): void {
-        // Starts a timer, counting every second
+        this.chats = [
+            {avatar: 'assets/avatars/default-avatar.png', name: 'Lorem ipsum', lastMessage: 'Hey there! Can I lend something from you?', lastSeen: this.lastSeen.toLocaleTimeString(), isUnread: true, unreadBadge: 198},
+            {avatar: 'assets/avatars/default-avatar.png', name: 'Lorem ipsum', lastMessage: 'Hey there! Can I lend something from you?', lastSeen: this.lastSeen.setTime(this.lastSeen.getTime() - 2).toLocaleString(), isUnread: true, unreadBadge: 32},
+            {avatar: 'assets/avatars/default-avatar.png', name: 'Lorem ipsum', lastMessage: 'Hey there! Can I lend something from you?', lastSeen: this.lastSeen.toLocaleTimeString(), isReceived: true},
+            {avatar: 'assets/avatars/default-avatar.png', name: 'Lorem ipsum', lastMessage: 'Hey there! Can I lend something from you?', lastSeen: this.lastSeen.toLocaleTimeString(), isReceivedRead: true}
+        ]
+        /**
+         * Sets the timer
+         * @see Observable#timer
+         * @version 1.0.2
+         */
         let timer = Observable.timer(0, 1000);
         // Susbscribe to the timer (t) and set timeloggedin to t
         timer.subscribe(t => this.timeLoggedIn = t);
@@ -161,7 +218,7 @@ export class AppComponent implements OnInit {
             if (this.showGreeting) {
                 this.snackbar.open('Signed in as '+this.settings.email, null, { duration: 2000 })
             }
-        }, 2000);
+        }, 3000);
         // this.subscription = this.fabService.actionStream.subscribe(event => this.events.push(event));
         
     }

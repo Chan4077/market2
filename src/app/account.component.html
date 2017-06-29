@@ -1,0 +1,22 @@
+<div fxFill>
+    <md-card fxFlex>
+        <md-card-title>Account Details</md-card-title>
+        <md-card-content fxLayout="column">
+            <span class="note">Update your account particulars or delete your account.</span>
+            <br>
+            <md-input-container color="primary">
+                <input [(ngModel)]="account.name" placeholder="Name" mdInput>
+                <span mdPrefix><md-icon svgIcon="account"></md-icon>&nbsp;</span>
+            </md-input-container>
+            <br>
+            <md-input-container color="primary">
+                <input type="email" [(ngModel)]="account.email" placeholder="Email" mdInput>
+                <span mdPrefix><md-icon svgIcon="email"></md-icon>&nbsp;</span>
+            </md-input-container>
+        </md-card-content>
+        <md-card-actions align="end">
+            <button md-button color="warn"><md-icon svgIcon="delete"></md-icon> Delete Account</button>
+            <button md-button color="primary" disabled>Update</button>
+        </md-card-actions>
+    </md-card>
+</div>

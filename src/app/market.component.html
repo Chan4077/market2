@@ -1,4 +1,3 @@
-<!--<market-sort-nav></market-sort-nav>-->
 <div class="card-container">
     <md-card *ngFor="let item of marketItems">
         <md-card-header>
@@ -7,31 +6,31 @@
             <md-card-title *ngIf="item.user == ''" class="red-color">Unknown</md-card-title>
             <md-card-subtitle *ngIf="item.job != ''">{{item.job}}</md-card-subtitle>
             <md-card-subtitle *ngIf="item.job == ''" class="red-color">No Job</md-card-subtitle>
-            <span flex></span>
+            <span fxFlex></span>
             <button md-icon-button [mdMenuTriggerFor]="more">
-                <md-icon>more_vert</md-icon>
+                <md-icon svgIcon="dots-vertical"></md-icon>
             </button>
             <md-menu #more="mdMenu">
                 <button md-menu-item (click)="viewAuthor(item)">
-                    <md-icon>account_circle</md-icon>
+                    <md-icon svgIcon="account-circle"></md-icon>
                     <span>View Profile</span>
                 </button>
                 <button md-menu-item>
-                    <md-icon>report</md-icon>
+                    <md-icon svgIcon="alert"></md-icon>
                     <span>Report Abuse</span>
                 </button>
                 <button md-menu-item>
-                    <md-icon>thumb_down</md-icon>
+                    <md-icon svgIcon="thumb-down"></md-icon>
                     <span>Show fewer posts from {{item.user}}</span>
                 </button>
                 <button md-menu-item>
-                    <md-icon>cancel</md-icon>
+                    <md-icon svgIcon="cancel"></md-icon>
                     <span>Block {{item.user}}</span>
                 </button>
             </md-menu>
         </md-card-header>
         <img md-card-image [alt]="item.name" [src]="'assets/items/' + item.imgSource" *ngIf="item.hasImage">
-        <md-card-title>{{item.name}}</md-card-title>
+        <md-card-title class="mat-h5">{{item.name}}</md-card-title>
         <md-card-content>
             {{item.description}}
             <br>
@@ -40,13 +39,35 @@
         <md-card-actions>
             <button md-raised-button color="primary">Buy</button>
             <button md-button color="accent">More info</button>
-            <span class="flex"></span>
-            <button md-icon-button color="primary" mdTooltip="View Comments" mdTooltipPosition="left" (click)="showComments(item)">
-                <md-icon>comment</md-icon>
+            <span fxFlex></span>
+            <button md-icon-button color="primary" mdTooltip="{{commentIsHidden(item.id) ? 'Hide' : 'Show'}} Comments" mdTooltipPosition="left" (click)="showComment(item.id)">
+                <md-icon svgIcon="comment"></md-icon>
             </button>
         </md-card-actions>
-        <div class="md-card-comments" [hidden]="false">
-            Some text
+        <div class="market-card-comments" [hidden]="commentIsHidden(item.id)">
+            <md-list>
+                <md-list-item *ngFor="let comment of item.comments; let i=index;">
+                    <img md-list-avatar [src]="comment.avatar" *ngIf="comment.avatar">
+                    <h4 md-line>{{comment.author}}</h4>
+                    <p md-line>{{comment.comment}}</p>
+                    <button md-icon-button (click)="reply(comment)"><md-icon svgIcon="message-reply"></md-icon></button>
+                </md-list-item>
+            </md-list>
+            <div>
+                <br>
+                <span>It looks like you reached the end.</span>
+                <br>
+                <span (click)="showNewComment(item.id)" style="text-decoration: underline; cursor: pointer; color: blue;">Post one?</span>
+            </div>
+            <md-divider></md-divider>
+            <div class="md-card-new-comment" [hidden]="newCommentIsHidden(item.id)">
+                <md-input-container color="primary">
+                    <input mdInput [(ngModel)]="newComment" placeholder="Comment" required>
+                    <md-error>This is required</md-error>
+                </md-input-container>
+                <button md-button (click)="showNewComment(item.id, true)">Cancel</button>
+                <button md-button (click)="postComment(newComment)">Post</button>
+            </div>
         </div>
     </md-card>
 </div>

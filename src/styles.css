@@ -17,7 +17,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-
+body {
+    font-family: Roboto, sans-serif;
+}
 md-sidenav-container {
     background: rgba(0, 0, 0, 0.03);
 }
@@ -138,4 +140,22 @@ md-icon.pink {
 }
 .bold:not(.overwrite-bold) {
     font-weight: bold;
+}
+
+.last-message {
+    max-width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.unread-message {
+    font-weight: bold !important;
+}
+button.mat-simple-snackbar-action {
+    text-transform: uppercase;
+}
+/* Fix icons looking weird */
+.mat-icon svg {
+	width: 24px;
+	height: 24px;
 }

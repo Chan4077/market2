@@ -1,16 +1,13 @@
 <h2 md-dialog-title>Preferences</h2>
 <md-dialog-content themeColor="isDarkTheme">
-    <md-tab-group>
+    <md-tab-group dynamicHeight md-stretch-tabs>
         <md-tab label="General">
             <h2>General Preferences</h2>
             <md-checkbox [(ngModel)]="settings.isDarkTheme">Enable Dark Mode</md-checkbox>
             <br>
-            <br>
             <md-checkbox [(ngModel)]="settings.showGreeting">Show Greeting on load</md-checkbox>
             <br>
-            <br>
             <md-checkbox [(ngModel)]="settings.openNewTab" color="primary">Open links in a new tab</md-checkbox>
-            <br>
             <br>
             <md-checkbox [(ngModel)]="settings.resetWarnings">Reset Warnings</md-checkbox>
         </md-tab>
@@ -18,49 +15,42 @@
             <h2>Account Preferences</h2>
             <strong>Name</strong>
             <br>
-            <md-input-container flex>
+            <md-input-container fxFlex>
                 <input mdInput placeholder="Name" [(ngModel)]="settings.name" required/>
                 <md-error>This is required.</md-error>
             </md-input-container>
             <br>
-            <br>
             <strong>Email</strong>
             <br>
-            <md-input-container flex>
+            <md-input-container fxFlex>
                 <input mdInput placeholder="Email" type="email" [(ngModel)]="settings.email" [formControl]="emailFormControl">
                 <md-error *ngIf="emailFormControl.hasError('required')">This is required.</md-error>
                 <md-error *ngIf="emailFormControl.hasError('pattern')">Please enter a valid email address.</md-error>
             </md-input-container>
             <br>
-            <br>
-            <p class="note"><strong>NOTE:</strong> The <code>md-datepicker</code> directive is currently unavailable. As such, I will be using <code>&lt;input type="datepicker" /&gt;</code></p>
-            <br>
-            <br>
             <strong>Birthday</strong>
-            <md-input-container flex color="accent">
-                <input mdInput placeholder="Birthday" type="date" [(ngModel)]="settings.birthday"/>
+            <br>
+            <md-input-container fxFlex color="accent">
+                <input mdInput [mdDatepicker]="birthdayPicker" placeholder="Birthday" required [(ngModel)]="settings.birthday">
+                <button mdSuffix [mdDatepickerToggle]="birthdayPicker"></button>
             </md-input-container>
+            <md-datepicker #birthdayPicker startView="year" [touchUi]="isMobile"></md-datepicker>
         </md-tab>
         <md-tab label="Experimental">
             <h2>Experimental Preferences</h2>
-            <br>
             <br>
             <md-input-container>
                 <input mdInput placeholder="Duration of toasts in milliseconds" value="1000" [(ngModel)]="settings.durationToasts">
             </md-input-container>
             <br>
-            <br>
-            <md-checkbox [(ngModel)]="settings.showDeveloper" color="warn">Show Developer Tab</md-checkbox>
-        </md-tab>
-        <md-tab label="Developer" *ngIf="settings.showDeveloper">
-            <p><strong>NOTE:</strong> This stuff will be stored in <code>localStorage</code>!</p>
+            <md-checkbox [(ngModel)]="settings.newPost" color="warn">Enable New Post</md-checkbox>
         </md-tab>
     </md-tab-group>
     <p class="note">Please refresh your page to apply changes.</p>
 </md-dialog-content>
 <md-dialog-actions>
     <button md-button color="warn" (click)="clearSettings(); dialogRef.close('clear')">Clear Settings</button>
-    <span flex></span>
+    <span fxFlex></span>
     <button md-button color="primary" (click)="dialogRef.close('cancel')">Cancel</button>
-    <button md-raised-button color="primary" (click)="dialogRef.close(settings)">Save</button>
+    <button md-button color="primary" (click)="dialogRef.close(settings)">Save</button>
 </md-dialog-actions>

@@ -8,6 +8,11 @@ import { UrlDialog } from '../dialogs/urldialog.component';
 export class UrlDialogService {
     settings: any = JSON.parse(localStorage.getItem('settings')) || {};
     constructor(private snackbar: MdSnackBar, private dialog: MdDialog) { }
+    /**
+     * Goes to a url
+     * @param {string} url The url to go to
+     * @return void
+     */
     public goToUrl(url: string): void {
         if (this.settings.resetWarnings) {
             let dialogRef = this.dialog.open(UrlDialog);

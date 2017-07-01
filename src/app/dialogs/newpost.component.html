@@ -1,0 +1,51 @@
+<h3 md-dialog-title>New Post</h3>
+<md-dialog-content class="mat-body">
+    <md-input-container color="primary">
+        <input mdInput [(ngModel)]="post.title" placeholder="Post Title">
+    </md-input-container>
+    <br>
+    <md-input-container color="primary">
+        <textarea mdInput [(ngModel)]="post.text" placeholder="Post content" rows="3"></textarea>
+    </md-input-container>
+    <br>
+    <md-input-container>
+        <input type="number" mdInput [(ngModel)]="post.price" placeholder="Price">
+    </md-input-container>
+    <br>
+    <md-checkbox [(ngModel)]="post.hasImage">Has Image?</md-checkbox>
+    <br>
+    <md-chip-list>
+        <md-chip *ngFor="let tag of post.tags" color="primary" selected="true">{{tag}}</md-chip>
+    </md-chip-list>
+    <md-input-container color="accent" mdTooltip="Press the enter (or return) key to add new">
+        <input #newTag mdInput (keyup.enter)="addTag(newTag)" placeholder="New Tag">
+        <md-hint>Enter a new tag that is not already here.</md-hint>
+    </md-input-container>
+    <span class="mat-input-error" *ngIf="isDuplicate">The chip you entered is a duplicate. Please try again.</span>
+    <button md-button (click)="addTag(newTag)" *ngIf="newTag">Add Tag</button>
+    <md-divider></md-divider>
+    <h3>Preview</h3>
+    <md-card>
+        <md-card-header>
+            <h5 class="mat-h5">{{post.title}}</h5>
+        </md-card-header>
+        <img md-card-image [src]="post.img" *ngIf="post.hasImage">
+        <md-card-content>
+            {{post.text}}
+            <br>Price: <strong class="mat-body-strong">{{post.price | currency:USD:false}}</strong>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button color="primary">Buy</button>
+            <button md-button color="accent">More Info</button>
+            <span fxFlex></span>
+            <button md-icon-button color="primary">
+                <md-icon svgIcon="comment"></md-icon>
+            </button>
+        </md-card-actions>
+    </md-card>
+    <re-captcha site_key="6LfEWScUAAAAAJpLbQ1xdT2F2ZDf8jyBAmcx8mTe"></re-captcha>
+</md-dialog-content>
+<md-dialog-actions align="end">
+    <button md-button md-dialog-close color="primary">Cancel</button>
+    <button md-button (click)="dialogRef.close(post)" color="primary">Post</button>
+</md-dialog-actions>

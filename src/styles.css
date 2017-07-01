@@ -159,3 +159,6 @@ button.mat-simple-snackbar-action {
 	width: 24px;
 	height: 24px;
 }
+.app-sidenav {
+    width: 280px;
+}

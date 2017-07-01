@@ -1,6 +1,7 @@
+import 'hammerjs';
+import { ReCaptchaModule } from "angular2-recaptcha";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedService, CustomSnackbarComponent, WarningSnackbarComponent, AlertDialog, PromptDialog } from './services/shared.service';
-import 'hammerjs';
 import { MdIconRegistry, DateAdapter } from "@angular/material";
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -73,7 +74,8 @@ const DIALOGS = [
         // AngularFireModule.initializeApp(environment.firebase),
         BrowserAnimationsModule,
         HighlightJsModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        ReCaptchaModule
     ],
     providers: [
         SidenavService,

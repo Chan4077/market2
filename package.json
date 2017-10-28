@@ -9,16 +9,7 @@
 	},
 	"license": "MIT",
 	"scripts": {
-		"start": "ng serve",
-		"lint": "tslint \"src/**/*.ts\" --project src/tsconfig.json --type-check && tslint \"e2e/**/*.ts\" --project e2e/tsconfig.json --type-check",
-		"test": "ng test",
-		"pree2e": "webdriver-manager update --standalone false --gecko false",
-		"e2e": "protractor",
-		"firebaseDeploy": "ng build -prod && firebase deploy && rm -rf dist/",
-		"checkNewDeps": "ncu -u",
-		"updateDeps": "npm update",
-		"forceUpdateDeps": "ncu -a && npm install",
-		"postinstall": "npm i @angular/flex-layout@latest"
+		"githubPages": "ng build --prod --base-href /market2/ --deploy-url /market2/ && ngh && rm -rf dist/"
 	},
 	"private": true,
 	"dependencies": {
@@ -45,6 +36,7 @@
 		"ts-helpers": "^1.1.2",
 		"typescript": "2.3.4",
 		"typings": "^2.1.0",
+		"web-animations-js": "^2.3.1",
 		"zone.js": "^0.8.18"
 	},
 	"devDependencies": {

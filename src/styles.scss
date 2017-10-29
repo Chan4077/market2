@@ -1,0 +1,196 @@
+@import '~@angular/material/theming';
+@include mat-core();
+@mixin market-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $background: map-get($theme, background);
+    .active-link {
+        color: mat-color($primary) !important;
+        background-color: mat-color($background, status-bar) !important;
+    }
+    .link {
+        color: mat-color($accent) !important;
+    }
+}
+
+// Light theme
+// Primary (Light)
+$market-app-primary: mat-palette($mat-deep-purple);
+// Accent (Light)
+$market-app-accent: mat-palette($mat-amber, A200, A100, A400);
+// Register as light theme
+$market-app-theme: mat-light-theme($market-app-primary, $market-app-accent);
+// Register theme
+@include angular-material-theme($market-app-theme);
+@include market-theme($market-app-theme);
+.dark-theme {
+    // Dark theme
+    $market-app-dark-primary: mat-palette($mat-pink, 700);
+    $market-app-dark-accent: mat-palette($mat-blue-grey, A200, A100, A400);
+    $market-app-dark-theme: mat-dark-theme($market-app-dark-primary, $market-app-dark-accent);
+    @include angular-material-theme($market-app-dark-theme);
+    @include market-theme($market-app-dark-theme);
+}
+// Styles from styles.css
+/* You can add global styles to this file, and also import other style files */
+
+@import '~highlight.js/styles/solarized-light.css';
+:root {
+    /* Variables */
+    --mat-icon-blue: blue;
+    /* Inactive md-icon */
+    --mat-icon-inactive: rgba(255, 255, 255, 0.3);
+    /* Dark md-icon for dark theme */
+    --mat-icon-dark: rgba(0, 0, 0, 0.54);
+    --color-red: red;
+}
+
+pre,
+code {
+    font-family: "Roboto Mono", monospace;
+}
+
+.mat-menu-item {
+    line-height: 24px !important;
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+mat-card {
+    width: 400px;
+    box-sizing: border-box;
+    margin: 16px;
+}
+
+.card-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.red-color {
+    color: var(--color-red);
+    font-weight: 700;
+}
+
+.active-link {}
+
+.sign-in {
+    font-size: 10px;
+}
+
+.content {
+    overflow: auto !important;
+}
+
+
+/*div.mat-tab-body-content {
+    margin: 20px;
+}*/
+
+.mat-list-avatar {
+    height: 25px !important;
+    width: 25px !important;
+}
+
+.note {
+    color: var(--color-red);
+}
+
+mat-spinner.start-indicator svg,
+mat-spinner.start-indicator {
+    width: 22px !important;
+    height: 22px !important;
+}
+
+.start {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+/* End styles */
+
+.logo {
+    height: 192px;
+    width: 192px;
+}
+
+.tab-icon {
+    margin-top: 5px;
+}
+
+.app-action {
+    display: inline-block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.sticky-toolbar {
+    position: sticky;
+    /* For Safari */
+    position: -webkit-sticky;
+    top: 0;
+}
+
+.mat-tab-body-content {
+    padding-left: 10px;
+}
+
+.bold:not(.overwrite-bold) {
+    font-weight: bold;
+}
+
+.last-message {
+    max-width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.unread-message {
+    font-weight: bold !important;
+}
+
+.mat-button,
+.mat-raised-button,
+.mat-simple-snackbar-action {
+    text-transform: uppercase;
+}
+
+
+/* Fix icons looking weird */
+
+.mat-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.app-sidenav {
+    width: 280px;
+}
+
+.app-content {
+    padding: 2.5%;
+}
+// End styles

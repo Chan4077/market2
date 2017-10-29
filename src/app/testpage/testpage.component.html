@@ -1,0 +1,8 @@
+<p>Welcome to the test page which you somehow accessed (or you probably looked at the source code)! In this test page, I'm testing tap targets using just <code>MatRipple</code>!</p>
+<button mat-raised-button (click)="launchFeatureDiscovery()" #featureDiscovery color="primary" [disabled]="interval">Launch feature discovery</button>
+<button mat-raised-button (click)="stop()" color="warn" [disabled]="!interval">Stop</button>
+<p class="note">WARNING: Please be aware that if you have a slow device, please do not click the button above (Launch feature discovery) as it will run an infinite loop. Continue at your risk.</p>
+<div [matRippleTrigger]="featureDiscovery" class="feature-discovery-toggle-right-btn" matRipple matRippleColor="#ffffff99" [hidden]="!hasFeatureDiscovery">
+	<p>Clicking this button will show additional functionality. Try it out!</p>
+	<button mat-button>Toggle right</button>
+</div>

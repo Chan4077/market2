@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import '~@angular/material/theming';
 @import '~highlight.js/styles/solarized-light.css';
 @include mat-core();
@@ -35,6 +36,33 @@ $market-app-theme: mat-light-theme($market-app-primary, $market-app-accent);
 }
 
 // Styles from styles.css
+.market-card-new-comment, .market-card-comments-end {
+	padding: 4px;
+}
+.ripple-container {
+    box-shadow: rgba(0, 0, 0, 0.118) 0 10px 15px, rgba(0, 0, 0, 0.239) 0 5px 10px;
+    cursor: pointer;
+    font-size: 24px;
+    height: 150px;
+    line-height: 150px;
+    position: relative;
+    text-align: center;
+    transition: all 200ms linear;
+    width: 200px;
+}
+.feature-discovery-toggle-right-btn {
+	height: 400px;
+	position: absolute;
+	right: -200px;
+	top: -200px;
+	width: 400px;
+	z-index: 1000;
+	border-radius: 50%;
+	p {
+		top: 40px;
+	}
+}
+
 pre,
 code {
     font-family: "Roboto Mono", monospace;
@@ -181,4 +209,5 @@ mat-spinner.start-indicator {
 .app-content {
     padding: 2.5%;
 }
+
 // End styles

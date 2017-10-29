@@ -35,4 +35,4 @@ export const routes: Routes = [
   { path: '**', component: PageNotFoundComponent }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
+export const AppRouting: ModuleWithProviders = RouterModule.forRoot(routes);

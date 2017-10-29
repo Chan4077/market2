@@ -1,73 +1,73 @@
 <div class="card-container">
-    <md-card *ngFor="let item of marketItems">
-        <md-card-header>
-            <img md-card-avatar src="/assets/avatars/{{item.userAvatar}}" onerror="this.src='/assets/avatars/default-avatar.png'">
-            <md-card-title *ngIf="item.user !=''">{{item.user}}</md-card-title>
-            <md-card-title *ngIf="item.user == ''" class="red-color">Unknown</md-card-title>
-            <md-card-subtitle *ngIf="item.job != ''">{{item.job}}</md-card-subtitle>
-            <md-card-subtitle *ngIf="item.job == ''" class="red-color">No Job</md-card-subtitle>
+    <mat-card *ngFor="let item of marketItems">
+        <mat-card-header>
+            <img mat-card-avatar src="/assets/avatars/{{item.userAvatar}}" onerror="this.src='/assets/avatars/default-avatar.png'">
+            <mat-card-title *ngIf="item.user !=''">{{item.user}}</mat-card-title>
+            <mat-card-title *ngIf="item.user == ''" class="red-color">Unknown</mat-card-title>
+            <mat-card-subtitle *ngIf="item.job != ''">{{item.job}}</mat-card-subtitle>
+            <mat-card-subtitle *ngIf="item.job == ''" class="red-color">No Job</mat-card-subtitle>
             <span fxFlex></span>
-            <button md-icon-button [mdMenuTriggerFor]="more">
-                <md-icon svgIcon="dots-vertical"></md-icon>
+            <button mat-icon-button [matMenuTriggerFor]="more">
+                <mat-icon svgIcon="dots-vertical"></mat-icon>
             </button>
-            <md-menu #more="mdMenu">
-                <button md-menu-item (click)="viewAuthor(item)">
-                    <md-icon svgIcon="account-circle"></md-icon>
-                    <span>View Profile</span>
+            <mat-menu #more="matMenu">
+                <button mat-menu-item (click)="viewAuthor(item)">
+                    <mat-icon svgIcon="account-circle"></mat-icon>
+                    <span>Code View</span>
                 </button>
-                <button md-menu-item>
-                    <md-icon svgIcon="alert"></md-icon>
+                <button mat-menu-item (click)="reportAbuse(item)">
+                    <mat-icon svgIcon="alert"></mat-icon>
                     <span>Report Abuse</span>
                 </button>
-                <button md-menu-item>
-                    <md-icon svgIcon="thumb-down"></md-icon>
+                <button mat-menu-item>
+                    <mat-icon svgIcon="thumb-down" (click)="showFewerPosts(item.user)"></mat-icon>
                     <span>Show fewer posts from {{item.user}}</span>
                 </button>
-                <button md-menu-item>
-                    <md-icon svgIcon="cancel"></md-icon>
+                <button mat-menu-item (click)="blockUser(item.user)">
+                    <mat-icon svgIcon="cancel"></mat-icon>
                     <span>Block {{item.user}}</span>
                 </button>
-            </md-menu>
-        </md-card-header>
-        <img md-card-image [alt]="item.name" [src]="'assets/items/' + item.imgSource" *ngIf="item.hasImage">
-        <md-card-title class="mat-h5">{{item.name}}</md-card-title>
-        <md-card-content>
+            </mat-menu>
+        </mat-card-header>
+        <img mat-card-image [alt]="item.name" [src]="'assets/items/' + item.imgSource" *ngIf="item.hasImage">
+        <mat-card-title class="mat-h5">{{item.name}}</mat-card-title>
+        <mat-card-content>
             {{item.description}}
             <br>
             <strong>Price: </strong> {{item.price | currency:USD:false}}
-        </md-card-content>
-        <md-card-actions>
-            <button md-raised-button color="primary">Buy</button>
-            <button md-button color="accent">More info</button>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary">Buy</button>
+            <button mat-button color="accent">More info</button>
             <span fxFlex></span>
-            <button md-icon-button color="primary" mdTooltip="{{commentIsHidden(item.id) ? 'Hide' : 'Show'}} Comments" mdTooltipPosition="left" (click)="showComment(item.id)">
-                <md-icon svgIcon="comment"></md-icon>
+            <button mat-icon-button color="primary" matTooltip="{{commentIsHidden(item.id) ? 'Hide' : 'Show'}} Comments" matTooltipPosition="left" (click)="showComment(item.id)">
+                <mat-icon svgIcon="comment"></mat-icon>
             </button>
-        </md-card-actions>
+        </mat-card-actions>
         <div class="market-card-comments" [hidden]="commentIsHidden(item.id)">
-            <md-list>
-                <md-list-item *ngFor="let comment of item.comments; let i=index;">
-                    <img md-list-avatar [src]="comment.avatar" *ngIf="comment.avatar">
-                    <h4 md-line>{{comment.author}}</h4>
-                    <p md-line>{{comment.comment}}</p>
-                    <button md-icon-button (click)="reply(comment)"><md-icon svgIcon="message-reply"></md-icon></button>
-                </md-list-item>
-            </md-list>
+            <mat-list>
+                <mat-list-item *ngFor="let comment of item.comments; let i=index;">
+                    <img mat-list-avatar [src]="comment.avatar" *ngIf="comment.avatar">
+                    <h4 matLine>{{comment.author}}</h4>
+                    <p matLine>{{comment.comment}}</p>
+                    <button mat-icon-button (click)="reply(comment)"><mat-icon svgIcon="message-reply"></mat-icon></button>
+                </mat-list-item>
+            </mat-list>
             <div>
                 <br>
                 <span>It looks like you reached the end.</span>
                 <br>
                 <span (click)="showNewComment(item.id)" style="text-decoration: underline; cursor: pointer; color: blue;">Post one?</span>
             </div>
-            <md-divider></md-divider>
-            <div class="md-card-new-comment" [hidden]="newCommentIsHidden(item.id)">
-                <md-input-container color="primary">
-                    <input mdInput [(ngModel)]="newComment" placeholder="Comment" required>
-                    <md-error>This is required</md-error>
-                </md-input-container>
-                <button md-button (click)="showNewComment(item.id, true)">Cancel</button>
-                <button md-button (click)="postComment(newComment)">Post</button>
+            <mat-divider></mat-divider>
+            <div class="mat-card-new-comment" [hidden]="newCommentIsHidden(item.id)">
+                <mat-form-field color="primary">
+                    <input matInput [(ngModel)]="newComment" placeholder="Comment" required>
+                    <mat-error>This is required</mat-error>
+                </mat-form-field>
+                <button mat-button (click)="showNewComment(item.id, true)">Cancel</button>
+                <button mat-button (click)="postComment(newComment)">Post</button>
             </div>
         </div>
-    </md-card>
+    </mat-card>
 </div>

@@ -1,17 +1,15 @@
 import 'hammerjs';
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SharedService, CustomSnackbarComponent, WarningSnackbarComponent, AlertDialog, PromptDialog } from './services/shared.service';
-import { MdIconRegistry, DateAdapter } from "@angular/material";
+import { Shared, AlertDialog, ConfirmDialog, PromptDialog, SelectionDialog } from './shared';
+import { MatIconRegistry, DateAdapter } from "@angular/material";
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { MarketMaterialModule } from './market.module';
 import { RouterModule, Routes } from '@angular/router';
 // import { AngularFireModule } from 'angularfire2';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 // App components
 import { MarketComponent, NewestMarketSortComponent, MarketNavComponent, PopularMarketSortComponent, ReplyDialog } from './market.component';
 import { AboutComponent } from './about.component';
@@ -20,7 +18,7 @@ import { PageNotFoundComponent } from './page-not-found.component';
 import { AppComponent } from './app.component';
 import { NewPostDialog } from './dialogs/newpost.component';
 // App modules
-import { routing } from './app.routing';
+import { AppRouting } from './app.routing';
 // App services
 import { SidenavService } from './services/sidenav.service';
 import { MarketItemService } from './services/marketitem.service';
@@ -32,6 +30,7 @@ import { VersionDialog } from './dialogs/versiondialog.component';
 import { UrlDialog } from './dialogs/urldialog.component';
 // Environment
 import { environment } from '../environments/environment';
+import { HttpClientModule } from "@angular/common/http";
 const DIALOGS = [
     // Dialogs
     NewPostDialog,
@@ -41,7 +40,9 @@ const DIALOGS = [
     UrlDialog,
     ReplyDialog,
     AlertDialog,
-    PromptDialog
+	PromptDialog,
+	ConfirmDialog,
+	SelectionDialog
 ]
 /**
  * The module to initialize with
@@ -59,21 +60,17 @@ const DIALOGS = [
         NewestMarketSortComponent,
         PopularMarketSortComponent,
         MarketNavComponent,
-        DIALOGS,
-        // Snackbar
-        CustomSnackbarComponent,
-        WarningSnackbarComponent
+        DIALOGS
     ],
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         MarketMaterialModule,
-        routing,
+        AppRouting,
         ReactiveFormsModule,
         // AngularFireModule.initializeApp(environment.firebase),
         BrowserAnimationsModule,
-        HighlightJsModule,
         FlexLayoutModule,
         ReCaptchaModule
     ],
@@ -81,26 +78,22 @@ const DIALOGS = [
         SidenavService,
         MarketItemService,
         UrlDialogService,
-        HighlightJsService,
-        SharedService
+        Shared
     ],
     bootstrap: [AppComponent],
     entryComponents: [
-        DIALOGS,
-        // Snackbars
-        CustomSnackbarComponent,
-        WarningSnackbarComponent
+        DIALOGS
     ]
 })
 export class AppModule {
     // constructor(overlayContainer: OverlayContainer) {
     //   overlayContainer.themeClass = 'dark-theme';
     // }
-    constructor(private mdIconRegistry: MdIconRegistry, private domSanitizer: DomSanitizer, private dateAdapter: DateAdapter<Date>) {
+    constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private dateAdapter: DateAdapter<Date>) {
         /** 
          * @todo Figure out a way to cache the iconset so that the browser doesn't dowmload the iconset again
          * */
-        mdIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('https://chan4077.github.io/res/mdi.svg'));
+        matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('https://chan4077.github.io/res/mdi.svg'));
         /**
          * Sets to US locale
          * @todo Add a preference to set the date locale

@@ -1,10 +1,9 @@
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { RequestOptions, Http, Headers } from "@angular/http";
 
 @Component({
-    selector: 'new-post',
+    selector: 'new-post-dialog',
     templateUrl: './newpost.component.html'
 })
 export class NewPostDialog implements OnInit {
@@ -14,7 +13,7 @@ export class NewPostDialog implements OnInit {
     imageData: any;
     reader: FileReader;
     isDuplicate: boolean = false;
-    constructor(private http: Http, public dialogRef: MdDialogRef<NewPostDialog>) { }
+    constructor(public dialogRef: MatDialogRef<NewPostDialog>) { }
     /**
      * Adds a new post
      * @param post The post object

@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
-import { HighlightJsService } from 'angular2-highlight-js';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
+import * as hljs from 'highlight.js';
 @Component({
   selector: 'more-info-dialog',
   templateUrl: './moreinfo.component.html'
@@ -11,7 +11,7 @@ export class MoreInfoDialog implements OnInit, AfterViewInit {
   json: any;
   settings: any;
   isDarkTheme: boolean;
-  constructor(public dialogRef: MdDialogRef<MoreInfoDialog>, private el: ElementRef, private service : HighlightJsService) { }
+  constructor(public dialogRef: MatDialogRef<MoreInfoDialog>, private el: ElementRef) { }
 
   ngOnInit() {
     this.author = this.dialogRef.componentInstance.json;
@@ -21,6 +21,6 @@ export class MoreInfoDialog implements OnInit, AfterViewInit {
     this.isDarkTheme = this.settings.isDarkTheme;
   }
   ngAfterViewInit() {
-    this.service.highlight(this.el.nativeElement.querySelector('.json'));
+    hljs.highlightBlock(this.el.nativeElement.querySelector('.json'));
   }
 }

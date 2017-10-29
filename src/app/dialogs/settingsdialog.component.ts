@@ -1,6 +1,6 @@
-import { SharedService } from './../services/shared.service';
+import { Shared } from '../shared';
 import { Component, OnInit } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -14,7 +14,7 @@ export class SettingsDialog implements OnInit {
     isMobile: boolean;
     // email: string;
     settings: any;
-    constructor(public dialogRef: MdDialogRef<SettingsDialog>, private sharedService: SharedService) { }
+    constructor(public dialogRef: MatDialogRef<SettingsDialog>, private shared: Shared) { }
     emailFormControl = new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]);
     clearSettings(): void {
         if (confirm('Are you sure you want to clear settings? This cannot be undone!')) {
@@ -27,6 +27,6 @@ export class SettingsDialog implements OnInit {
     ngOnInit(): void {
         this.settings = JSON.parse(localStorage.getItem('settings')) || { 'isDarkTheme': true, 'name': 'Lorem ipsum', 'email': 'johnappleseed@gmail.com', 'birthday': '2003-12-23', 'showDeveloper': false };
         this.isDarkTheme = this.settings.isDarkTheme;
-        this.isMobile = this.sharedService.detectIsMobile();
+        this.isMobile = this.shared.isMobile();
     }
 }

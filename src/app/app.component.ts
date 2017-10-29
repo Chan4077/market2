@@ -32,12 +32,8 @@ export class AppComponent implements OnInit {
     settings: any;
     timeLoggedIn: number;
     chats: any;
-    // result: any;
-    // overlayContainer.themeClass = 'dark-theme';
-    // private events: string[] = [];
-    // private subscription: Subscription;
     @ViewChild('left') public leftSidenav;
-    constructor(private sidenavService: SidenavService, public dialog: MatDialog, public overlayContainer: OverlayContainer, public snackbar: MatSnackBar, public router: Router, private urlDialogService: UrlDialogService, private shared: Shared, private dom: DomSanitizer) {
+    constructor(private sidenavService: SidenavService, private dialog: MatDialog, private overlayContainer: OverlayContainer, private snackbar: MatSnackBar, private router: Router, private urlDialogService: UrlDialogService, private shared: Shared, private dom: DomSanitizer) {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 ga('set', 'page', event.urlAfterRedirects);
@@ -46,11 +42,7 @@ export class AppComponent implements OnInit {
         })
     }
     /**
-     * Refreshes the page
-     * @version 1.0.2
-     * @author Edric Chan
-     * @example `<button md-button (click)="refresh()">Refresh</button>`
-     * @description Uses `window.locatiob.reload(true)`, where passing in `true` will force-reload
+     * Refreshes the current page
      */
     refresh() {
         let dialogRef = this.shared.openConfirmDialog({msg: this.dom.bypassSecurityTrustHtml('<p>Do you want to refresh the app?</p> <br><p>All unsaved changes will be lost.</p>'), isHtml: true});
@@ -61,11 +53,7 @@ export class AppComponent implements OnInit {
         })
     }
     /**
-     * Opens the `SettingsDialog`
-     * @version 1.0.2
-     * @author Edric Chan
-     * @example `<button md-button (click)="openSettings()">Open Settings</button>` 
-     * @description Opens a dialog which is imported from `./dialogs/settingsdialog.component` and opened in `this.dialog.open()`
+     * Opens the settings dialog
      */
     openSettings() {
         let dialogRef = this.dialog.open(SettingsDialog);
@@ -88,7 +76,11 @@ export class AppComponent implements OnInit {
                 console.log('Settings cleared!');
             }
         })
-    }
+	}
+	/**
+	 * Gets the sidenav mode
+	 * @returns {string}
+	 */
     getSidenavMode(): string {
         if (this.shared.isMobile()) {
             return "over";
@@ -97,54 +89,34 @@ export class AppComponent implements OnInit {
         }
     }
     /**
-     * Goes to the url specified
-     * @version 1.0.2
-     * @author Edric Chan
-     * @example `<button md-button (click)="openUrl('https://example.com')">Go to url</button>`
-     * @description Opens a url via a dialog which states that the he/she is being redirected to another website
-     * @param {string} url The url to redirect to 
+     * Requests the user via a dialog whether to go to a URL
+     * @param {string} url The url to go to
      */
     openUrl(url: string) {
         this.urlDialogService.goToUrl(url);
     }
     /**
-     * Shows the versions used
-     * @version 1.0.2
-     * @author Edric Chan
-     * @example `<button md-button (click)="showVersionInfo()">Versions used</button>`
-     * @description Opens a dialog which shows more info about the versions used
-     */
+     * Opens a dialog which shows what dependency versions that the app used
+	 * @todo Add actual functionality
+	 */
     showVersionInfo() {
         this.dialog.open(VersionDialog);
     }
     /**
-     * Get links for sidenav
-     * @version 1.0.2
-     * @author Edric Chan
-     * @example `ngOnInit() {this.getLinks();}`
-     * @description Gets the links for sidenav via a service
-     * @returns null
+     * Gets the links for the sidenav
      */
-    getLinks(): void {
+    getLinks() {
         this.sidenavService.getLinks().then(sidenavLinks => this.sidenavLinks = sidenavLinks);
     }
     /**
-     * Snackbar for stating where the user navigated to
-     * @version 1.0.2
-     * @author Edric Chan
-     * @example `<md-list-item (click)="switchSite(links.text)">Some text</md-list-item>`
-     * @description Opens a sidenav when on click to navigate
-     * @param {string} name The name of the site being navigated to 
-     * @returns null
+	 * Shows a snackbar when the user switches pages
+	 * @param {string} name The name of the page that the user switched to
      */
     switchSite(name: string): void {
         this.snackbar.open("Navigated to " + name, null, { duration: 3000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] });
     }
     /**
-     * @version 1.0.2
-     * @author Edric Chan
-     * @example `<button md-fab (click)="addItem()"></button>`
-     * @description Just logs to the console...
+	 * Adds an item to the (virtual) Market
      */
     addItem() {
         let dialogRef = this.dialog.open(NewPostDialog);

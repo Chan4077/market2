@@ -1,9 +1,11 @@
-import { SharedService } from './services/shared.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Shared } from './shared';
 import { NewPostDialog } from './dialogs/newpost.component';
 import { Component, OnInit, ViewContainerRef, Inject, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Links } from './sidenav';
-import { MdDialog, MdDialogRef, MdDialogConfig, OverlayContainer, MdSnackBar, MdSnackBarRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MatDialogConfig, MatSnackBar, MatSnackBarRef } from '@angular/material';
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Router, NavigationEnd } from '@angular/router';
 import { storage } from 'firebase';
 // Dialogs
@@ -35,36 +37,13 @@ export class AppComponent implements OnInit {
     // private events: string[] = [];
     // private subscription: Subscription;
     @ViewChild('left') public leftSidenav;
-    constructor(private sidenavService: SidenavService, public dialog: MdDialog, public overlayContainer: OverlayContainer, public snackbar: MdSnackBar, public router: Router, private urlDialogService: UrlDialogService, private sharedService: SharedService) {
+    constructor(private sidenavService: SidenavService, public dialog: MatDialog, public overlayContainer: OverlayContainer, public snackbar: MatSnackBar, public router: Router, private urlDialogService: UrlDialogService, private shared: Shared, private dom: DomSanitizer) {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 ga('set', 'page', event.urlAfterRedirects);
                 ga('send', 'pageview');
             }
         })
-    }
-    /**
-     * Shows a custom snackbar
-     * @see MdSnackbarRef
-     * @see SharedService#showCustomSnackbar
-     * @version 1.2.2
-     * @param {string} snackbarContent The snackbar content
-     * @param {boolean} isHtml Whether content is HTML (Default: false)
-     * @param {number} duration Duration to show the snackbar (Default: 5000)
-     */
-    showCustomSnackbar(snackbarContent: string, isHtml: boolean = false, duration: number = 5000) {
-        this.sharedService.showCustomSnackbar(snackbarContent, isHtml, 5000);
-    }
-    /**
-     * Shows a warning snackbar
-     * @see MdSnackbarRef
-     * @see SharedServive#showWarningSnackbar
-     * @version 1.2.2
-     * @param {string} snackbarContent The snackbar content
-     * @param {number} duration Duration to show the snackbar (Default: 8000)
-     */
-    showWarningSnackbar(snackbarContent: string, duration: number = 8000) {
-        this.sharedService.showWarningSnackbar(snackbarContent, 8000);
     }
     /**
      * Refreshes the page
@@ -74,14 +53,10 @@ export class AppComponent implements OnInit {
      * @description Uses `window.locatiob.reload(true)`, where passing in `true` will force-reload
      */
     refresh() {
-        let refreshDialog = this.sharedService.showAlertDialog('Are you sure you want to refresh?<br>All unsaved changes will be lost.', 'end');
-        refreshDialog.subscribe(result => {
-            if (result == 'cancel') {
-                // Do nothing
-            } else if (result == 'ok') {
+        let dialogRef = this.shared.openConfirmDialog({msg: this.dom.bypassSecurityTrustHtml('<p>Do you want to refresh the app?</p> <br><p>All unsaved changes will be lost.</p>'), isHtml: true});
+        dialogRef.afterClosed().subscribe(result => {
+            if (result == 'ok') {
                 window.location.reload(true);
-            } else {
-                throw new ReferenceError("result is invalid.");
             }
         })
     }
@@ -99,12 +74,15 @@ export class AppComponent implements OnInit {
                 console.dir(JSON.stringify(result));
                 localStorage.setItem('settings', JSON.stringify(result));
                 console.log('User clicked save. Saving settings to localStorage...');
-                this.snackbar.open('Preferences saved.', 'Undo', { duration: 5000 });
+				let snackBarRef = this.snackbar.open('Preferences saved.', 'Reload', { duration: 5000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] });
+				snackBarRef.onAction().subscribe(_ => {
+					window.location.reload(true);
+				})
             } else if (result == 'cancel') {
                 // Sets localStorage settings to value on `ngOnInit()`
                 localStorage.setItem('settings', JSON.stringify(this.settings));
                 console.log('User clicked cancel. Reverting to initial settings in localStorage.');
-                this.snackbar.open('Settings were reverted', null, { duration: 5000 });
+                this.snackbar.open('Settings were reverted', null, { duration: 5000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] });
             } else if (result == 'clear') {
                 // Do nothing
                 console.log('Settings cleared!');
@@ -112,7 +90,7 @@ export class AppComponent implements OnInit {
         })
     }
     getSidenavMode(): string {
-        if (this.sharedService.detectIsMobile()) {
+        if (this.shared.isMobile()) {
             return "over";
         } else {
             return "side";
@@ -160,7 +138,7 @@ export class AppComponent implements OnInit {
      * @returns null
      */
     switchSite(name: string): void {
-        this.snackbar.open("Navigated to " + name, null, { duration: 2000 });
+        this.snackbar.open("Navigated to " + name, null, { duration: 3000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] });
     }
     /**
      * @version 1.0.2
@@ -208,15 +186,15 @@ export class AppComponent implements OnInit {
         this.showGreeting = this.settings.showGreeting;
         console.log(this.isDarkTheme);
         if (this.isDarkTheme) {
-            this.overlayContainer.themeClass = 'dark-theme';
+            this.overlayContainer.getContainerElement().className = 'dark-theme';
         } else {
-            this.overlayContainer.themeClass = null;
+            this.overlayContainer.getContainerElement().className = null;
         }
         this.showSpinner = true;
         setTimeout(() => {
             this.showSpinner = false;
             if (this.showGreeting) {
-                this.snackbar.open('Signed in as '+this.settings.email, null, { duration: 2000 })
+                this.snackbar.open('Signed in as '+this.settings.email, null, { duration: 3000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] })
             }
         }, 3000);
         // this.subscription = this.fabService.actionStream.subscribe(event => this.events.push(event));

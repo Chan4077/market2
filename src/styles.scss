@@ -1,4 +1,6 @@
+/* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/theming';
+@import '~highlight.js/styles/solarized-light.css';
 @include mat-core();
 @mixin market-theme($theme) {
     $primary: map-get($theme, primary);
@@ -31,20 +33,8 @@ $market-app-theme: mat-light-theme($market-app-primary, $market-app-accent);
     @include angular-material-theme($market-app-dark-theme);
     @include market-theme($market-app-dark-theme);
 }
+
 // Styles from styles.css
-/* You can add global styles to this file, and also import other style files */
-
-@import '~highlight.js/styles/solarized-light.css';
-:root {
-    /* Variables */
-    --mat-icon-blue: blue;
-    /* Inactive md-icon */
-    --mat-icon-inactive: rgba(255, 255, 255, 0.3);
-    /* Dark md-icon for dark theme */
-    --mat-icon-dark: rgba(0, 0, 0, 0.54);
-    --color-red: red;
-}
-
 pre,
 code {
     font-family: "Roboto Mono", monospace;
@@ -75,11 +65,9 @@ mat-card {
 }
 
 .red-color {
-    color: var(--color-red);
+    color: red;
     font-weight: 700;
 }
-
-.active-link {}
 
 .sign-in {
     font-size: 10px;
@@ -100,7 +88,7 @@ mat-card {
 }
 
 .note {
-    color: var(--color-red);
+    color: red;
 }
 
 mat-spinner.start-indicator svg,

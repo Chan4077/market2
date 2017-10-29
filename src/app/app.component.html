@@ -1,87 +1,98 @@
-<div class="start" *ngIf="showSpinner">
-    <img src="/assets/logo.png" alt="logo" class="logo">
-    <md-progress-spinner mode="indeterminate" color="accent" class="start-indicator" strokeWidth="12"></md-progress-spinner>
-</div>
-<div [class.dark-theme]="isDarkTheme" class="content" [hidden]="showSpinner">
-    <md-sidenav-container fullscreen>
-        <md-toolbar color="primary" class="mat-elevation-z4 top-toolbar" style="z-index: 1" id="top-toolbar">
-            <button md-icon-button (click)="this.left.toggle()" mdTooltip="Sidenav" mdTooltipPosition="below">
-                <md-icon svgIcon="menu"></md-icon>
-            </button> Market 2
-            <span fxFlex></span>
-            
-            <!--<img md-card-avatar src="../../assets/avatars/default-avatar.png">
-            <span class="sign-in">Signed in as Test</span>
-            <button md-button>Sign Out</button>-->
-            <button md-icon-button (click)="refresh()" mdTooltip="Refresh" mdTooltipPosition="below">
-                <md-icon svgIcon="refresh"></md-icon>
-            </button>
-            <button md-icon-button [mdMenuTriggerFor]="more">
-                <md-icon svgIcon="dots-vertical"></md-icon>
-            </button>
-            <md-menu #more="mdMenu">
-                <button md-menu-item (click)="openUrl('https://github.com/Chan4077/market2')">
-                    <md-icon svgIcon="code-tags"></md-icon>
-                    <span>View Source</span>
-                </button>
-                <button md-menu-item (click)="openSettings()">
-                    <md-icon svgIcon="settings"></md-icon>
-                    <span>Settings</span>
-                </button>
-                <button md-menu-item (click)="showVersionInfo()">
-                    <md-icon svgIcon="information"></md-icon>
-                    <span>Version Info</span>
-                </button>
-            </md-menu>
-            <button md-button (click)="right.toggle()" mdTooltip="Extra" mdTooltipPosition="left">Toggle Right</button>
-        </md-toolbar>
-        <md-sidenav #left [mode]="getSidenavMode()" class="app-sidenav">
-            <md-toolbar color="accent" class="mat-elevation-z4">
-                Links
-                <span fxFlex></span>
-                <button md-icon-button (click)="left.close()" mdTooltip="Close Sidenav">
-                    <md-icon svgIcon="arrow-collapse-left"></md-icon>
-                </button>
-            </md-toolbar>
-            <md-nav-list>
-                <a md-list-item *ngFor="let link of sidenavLinks" [routerLink]="[link.href]" (click)="switchSite(link.name)"
-                    routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
-                    <md-icon md-list-avatar svgIcon="{{link.icon}}"></md-icon>
-                    <h3 md-line>{{link.name}}</h3>
-                </a>
-            </md-nav-list>
-        </md-sidenav>
-        <md-sidenav align="end" #right mode="side" fxLayout="column">
-            <md-toolbar color="warn">
-
-                <button md-icon-button (click)="right.close()" mdTooltip="Close Sidenav"><md-icon svgIcon="arrow-collapse-right"></md-icon></button>
-            </md-toolbar>
-            <md-tab-group md-stretch-tabs>
-                <md-tab label="Messages">
-                    <h1>Chat</h1>
-                    <md-nav-list>
-                        <a md-list-item *ngFor="let chat of chats">
-                            <img md-list-avatar [src]="chat.avatar">
-                            <h4 md-line>{{chat.name}}</h4>
-                            <p md-line class="last-message" [ngClass]="{'unread-message':chat.isUnread}">{{chat.lastMessage}}</p>
-                            <span md-line class="last-seen">Last Seen at {{chat.lastSeen}}</span>
-                            <md-icon svgIcon="checkbox-blank-circle" *ngIf="chat.isUnread" style="color:#00e60d;" mdTooltip="{{chat.unreadBadge}} unread messages" mdTooltipPosition="left"></md-icon>
-                            <md-icon svgIcon="check-all" *ngIf="chat.isReceivedRead" style="color:lightskyblue;" mdTooltip="{{chat.name}} has received and read your message!" mdTooltipPosition="left"></md-icon>
-                            <md-icon svgIcon="check" *ngIf="chat.isReceived" style="color:grey;" mdTooltip="{{chat.name}} has received your message." mdTooltipPosition="left"></md-icon>
-                        </a>
-                    </md-nav-list>
-                    <!--<div>
-                        <md-toolbar color="warn">Message</md-toolbar>
-                    </div>-->
-                </md-tab>
-                <md-tab label="Shopping list">
-                    <span class="time">Time logged in: {{timeLoggedIn}}</span>
-                </md-tab>
-            </md-tab-group>
-        </md-sidenav>
-        <router-outlet></router-outlet>
-    </md-sidenav-container>
-    <span class="app-action" *ngIf="router.url == '/market'">
-        <button md-fab (click)="addItem()" mdTooltip="New Item" mdTooltipPosition="above"><md-icon svgIcon="plus"></md-icon></button>
-    </span>
+<div cdkTrapFocus>
+	<div class="start" *ngIf="showSpinner">
+		<img src="/assets/logo.png" alt="logo" class="logo">
+		<mat-spinner class="start-indicator"></mat-spinner>
+	</div>
+	<div [class.dark-theme]="isDarkTheme" class="content" [hidden]="showSpinner">
+		<mat-sidenav-container fullscreen>
+			<mat-sidenav #left [mode]="getSidenavMode()" class="app-sidenav">
+				<mat-toolbar>
+					Links
+					<span fxFlex></span>
+					<button mat-icon-button (click)="left.close()" matTooltip="Close Sidenav" matTooltipPosition="left">
+						<mat-icon svgIcon="arrow-collapse-left"></mat-icon>
+					</button>
+				</mat-toolbar>
+				<mat-nav-list>
+					<a mat-list-item *ngFor="let link of sidenavLinks" [routerLink]="[link.href]" (click)="switchSite(link.name)" routerLinkActive="active-link">
+						<mat-icon matListIcon svgIcon="{{link.icon}}"></mat-icon>
+						<p matLine>{{link.name}}</p>
+					</a>
+				</mat-nav-list>
+			</mat-sidenav>
+			<mat-sidenav align="end" #right mode="side" fxLayout="column">
+				<mat-toolbar>
+					<button mat-icon-button (click)="right.close()" matTooltip="Close Sidenav" matTooltipPosition="right">
+						<mat-icon svgIcon="arrow-collapse-right"></mat-icon>
+					</button>
+				</mat-toolbar>
+				<mat-tab-group mat-stretch-tabs>
+					<mat-tab label="Messages">
+						<h1>Chat</h1>
+						<mat-nav-list>
+							<a mat-list-item *ngFor="let chat of chats">
+								<img mat-list-avatar [src]="chat.avatar">
+								<h4 matLine>{{chat.name}}</h4>
+								<p matLine class="last-message" [ngClass]="{'unread-message':chat.isUnread}">{{chat.lastMessage}}</p>
+								<span matLine class="last-seen">Last Seen at {{chat.lastSeen}}</span>
+								<mat-icon svgIcon="checkbox-blank-circle" *ngIf="chat.isUnread" style="color:#00e60d;" matTooltip="{{chat.unreadBadge}} unread messages"
+								matTooltipPosition="left"></mat-icon>
+								<mat-icon svgIcon="check-all" *ngIf="chat.isReceivedRead" style="color:lightskyblue;" matTooltip="{{chat.name}} has received and read your message!"
+								matTooltipPosition="left"></mat-icon>
+								<mat-icon svgIcon="check" *ngIf="chat.isReceived" style="color:grey;" matTooltip="{{chat.name}} has received your message."
+								matTooltipPosition="left"></mat-icon>
+							</a>
+						</mat-nav-list>
+						<!--<div>
+							<mat-toolbar color="warn">Message</mat-toolbar>
+						</div>-->
+					</mat-tab>
+					<mat-tab label="Shopping list">
+						<span class="time">Time logged in: {{timeLoggedIn}}</span>
+					</mat-tab>
+				</mat-tab-group>
+			</mat-sidenav>
+			<mat-sidenav-content fxLayout="column">
+				<mat-toolbar color="primary" class="mat-elevation-z3 sticky-toolbar" style="z-index: 1" id="sticky-toolbar">
+					<button mat-icon-button (click)="this.left.toggle()">
+						<mat-icon svgIcon="menu"></mat-icon>
+					</button> Market 2
+					<span fxFlex></span>
+			
+					<!--<img mat-card-avatar src="../../assets/avatars/default-avatar.png">
+				<span class="sign-in">Signed in as Test</span>
+				<button mat-button>Sign Out</button>-->
+					<button mat-icon-button (click)="refresh()" matTooltip="Refresh" matTooltipPosition="below">
+						<mat-icon svgIcon="refresh"></mat-icon>
+					</button>
+					<button mat-icon-button [matMenuTriggerFor]="more">
+						<mat-icon svgIcon="dots-vertical"></mat-icon>
+					</button>
+					<mat-menu #more="matMenu">
+						<button mat-menu-item (click)="openUrl('https://github.com/Chan4077/market2')">
+							<mat-icon svgIcon="code-tags"></mat-icon>
+							<span>View Source</span>
+						</button>
+						<button mat-menu-item (click)="openSettings()">
+							<mat-icon svgIcon="settings"></mat-icon>
+							<span>Settings</span>
+						</button>
+						<button mat-menu-item (click)="showVersionInfo()">
+							<mat-icon svgIcon="information"></mat-icon>
+							<span>Version Info</span>
+						</button>
+					</mat-menu>
+					<button mat-button (click)="right.toggle()" matTooltip="Extra" matTooltipPosition="left">Toggle Right</button>
+				</mat-toolbar>
+				<div class="app-content">
+					<router-outlet></router-outlet>
+				</div>
+				<span class="app-action" *ngIf="router.url == '/market'">
+					<button mat-fab (click)="addItem()" matTooltip="New Item" matTooltipPosition="left">
+						<mat-icon svgIcon="plus"></mat-icon>
+					</button>
+				</span>
+			</mat-sidenav-content>
+		</mat-sidenav-container>
+	</div>
 </div>

@@ -6,7 +6,6 @@
 - [Contributing](#contributing)
 - [NOTES](#notes)
 - [A note of thanks](#a-note-of-thanks)
-- [Random stuff](#random-stuff)
 
 ---
 ## Introduction 
@@ -28,7 +27,7 @@ If you want to build the source code, follow these steps:
      
      > NOTE: If you don't have `@angular/cli`, please view the [wiki](https://github.com/angular/angular-cli/wiki) to install it
      
-3. Navigate to `localhost:4200` and you should see the code there.
+3. Navigate to `localhost:3000` and you should see the code there.
 Done!
 
 ## Contributing
@@ -40,19 +39,8 @@ If you would like to contribute, please create a [new issue](https://github.com/
 - Projects for this repo will be *COMING SOON*.
 - Status for website [here](https://github.com/Chan4077/future/blob/master/new/market2.md)
 
-
 ---
 ## A note of thanks
 :heart: Made with love using Markdown and Github's online editor
 
 :smile: Thanks to all the demos online such as the [angularfire2 Wiki](https://github.com/angular/angularfire2/wiki), [Angular Material 2](https://material.angular.io), [Angular 4](https://angular.io) and other code examples and samples online. Your work is **truly appreciated**. :tada:
-
-## Random stuff
-- ~~NOTE: This won't be in the table of contents~~ UPDATE: This will **be in the table of contents.**
-- [Text faces](textfa.ces)
-- [My blog](https://chanziyangedric.blogspot.com)
-- [Github Page](https://chan4077.github.io)
-- [Inspirational Quotes](https://plus.google.com/collection/UZIolB)
-- [Follow me on Google+](https://plus.google.com/+EdricChan03)
-
-_(Why are there so many problems with code blocks??? (For Markdown where I tried to put a code block in a list...):sweat:)_

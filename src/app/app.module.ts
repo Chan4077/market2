@@ -11,10 +11,10 @@ import { RouterModule, Routes } from '@angular/router';
 // import { AngularFireModule } from 'angularfire2';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // App components
-import { MarketComponent, NewestMarketSortComponent, MarketNavComponent, PopularMarketSortComponent, ReplyDialog } from './market.component';
-import { AboutComponent } from './about.component';
-import { AccountComponent } from './account.component';
-import { PageNotFoundComponent } from './page-not-found.component';
+import { MarketComponent, NewestMarketSortComponent, MarketNavComponent, PopularMarketSortComponent, ReplyDialog } from './market/market.component';
+import { AboutComponent } from './about/about.component';
+import { AccountComponent } from './account/account.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppComponent } from './app.component';
 import { NewPostDialog } from './dialogs/newpost.component';
 // App modules

@@ -1,3 +1,4 @@
+import { Settings } from './settings';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Shared } from './shared';
 import { Component, OnInit } from '@angular/core';
@@ -27,6 +28,7 @@ export class MarketComponent implements OnInit {
 	marketItems: Item[];
 	newCommentHidden: any = [];
 	commentHidden: any = [];
+	settings: Settings;
 	constructor(private marketItemService: MarketItemService, private dialog: MatDialog, private shared: Shared, private dom: DomSanitizer) { }
 
 	getMarketItems() {
@@ -34,6 +36,9 @@ export class MarketComponent implements OnInit {
 	}
 	ngOnInit() {
 		this.getMarketItems();
+		if (window.localStorage.getItem('settings')) {
+			this.settings = <Settings>JSON.parse(window.localStorage.getItem('settings'));
+		}
 	}
 	viewAuthor($event: any) {
 		let name = JSON.stringify($event);
@@ -109,7 +114,13 @@ export class MarketComponent implements OnInit {
      * @param {string} comment The comment to post
      */
 	postComment(comment: string) {
-		console.log(comment);
+		if (this.settings) {
+			if (this.settings.email) {
+				this.shared.openSnackBar({ msg: "Your comment was posted!", action: "Undo", additionalOpts: { duration: 6000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] } });
+			} else {
+				this.shared.openAlertDialog({title: "You need to sign in/ have an account", msg: "To post a comment, please sign in to your account or create one."});
+			}
+		}
 	}
 }
 @Component({

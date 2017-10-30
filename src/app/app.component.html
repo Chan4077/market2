@@ -36,11 +36,11 @@
 								<p matLine class="last-message" [ngClass]="{'unread-message':chat.isUnread}">{{chat.lastMessage}}</p>
 								<span matLine class="last-seen">Last Seen at {{chat.lastSeen}}</span>
 								<mat-icon svgIcon="checkbox-blank-circle" *ngIf="chat.isUnread" style="color:#00e60d;" matTooltip="{{chat.unreadBadge}} unread messages"
-								matTooltipPosition="left"></mat-icon>
+								 matTooltipPosition="left"></mat-icon>
 								<mat-icon svgIcon="check-all" *ngIf="chat.isReceivedRead" style="color:lightskyblue;" matTooltip="{{chat.name}} has received and read your message!"
-								matTooltipPosition="left"></mat-icon>
+								 matTooltipPosition="left"></mat-icon>
 								<mat-icon svgIcon="check" *ngIf="chat.isReceived" style="color:grey;" matTooltip="{{chat.name}} has received your message."
-								matTooltipPosition="left"></mat-icon>
+								 matTooltipPosition="left"></mat-icon>
 							</a>
 						</mat-nav-list>
 						<!--<div>
@@ -58,7 +58,7 @@
 						<mat-icon svgIcon="menu"></mat-icon>
 					</button> Market 2
 					<span fxFlex></span>
-			
+
 					<!--<img mat-card-avatar src="../../assets/avatars/default-avatar.png">
 				<span class="sign-in">Signed in as Test</span>
 				<button mat-button>Sign Out</button>-->

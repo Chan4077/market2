@@ -31,15 +31,16 @@ import { UrlDialog } from './dialogs/urldialog.component';
 // Environment
 import { environment } from '../environments/environment';
 import { HttpClientModule } from "@angular/common/http";
+import { TestpageComponent } from './testpage/testpage.component';
 const DIALOGS = [
-    // Dialogs
-    NewPostDialog,
-    SettingsDialog,
-    MoreInfoDialog,
-    VersionDialog,
-    UrlDialog,
-    ReplyDialog,
-    AlertDialog,
+	// Dialogs
+	NewPostDialog,
+	SettingsDialog,
+	MoreInfoDialog,
+	VersionDialog,
+	UrlDialog,
+	ReplyDialog,
+	AlertDialog,
 	PromptDialog,
 	ConfirmDialog,
 	SelectionDialog
@@ -51,53 +52,54 @@ const DIALOGS = [
  * @type @NgModule
  */
 @NgModule({
-    declarations: [
-        MarketComponent,
-        AboutComponent,
-        AppComponent,
-        AccountComponent,
-        PageNotFoundComponent,
-        NewestMarketSortComponent,
-        PopularMarketSortComponent,
-        MarketNavComponent,
-        DIALOGS
-    ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpClientModule,
-        MarketMaterialModule,
-        AppRouting,
-        ReactiveFormsModule,
-        // AngularFireModule.initializeApp(environment.firebase),
-        BrowserAnimationsModule,
-        FlexLayoutModule,
-        ReCaptchaModule
-    ],
-    providers: [
-        SidenavService,
-        MarketItemService,
-        UrlDialogService,
-        Shared
-    ],
-    bootstrap: [AppComponent],
-    entryComponents: [
-        DIALOGS
-    ]
+	declarations: [
+		MarketComponent,
+		AboutComponent,
+		AppComponent,
+		AccountComponent,
+		PageNotFoundComponent,
+		NewestMarketSortComponent,
+		PopularMarketSortComponent,
+		MarketNavComponent,
+		DIALOGS,
+		TestpageComponent
+	],
+	imports: [
+		BrowserModule,
+		FormsModule,
+		HttpClientModule,
+		MarketMaterialModule,
+		AppRouting,
+		ReactiveFormsModule,
+		// AngularFireModule.initializeApp(environment.firebase),
+		BrowserAnimationsModule,
+		FlexLayoutModule,
+		ReCaptchaModule
+	],
+	providers: [
+		SidenavService,
+		MarketItemService,
+		UrlDialogService,
+		Shared
+	],
+	bootstrap: [AppComponent],
+	entryComponents: [
+		DIALOGS
+	]
 })
 export class AppModule {
-    // constructor(overlayContainer: OverlayContainer) {
-    //   overlayContainer.themeClass = 'dark-theme';
-    // }
-    constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private dateAdapter: DateAdapter<Date>) {
+	// constructor(overlayContainer: OverlayContainer) {
+	//   overlayContainer.themeClass = 'dark-theme';
+	// }
+	constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer, private dateAdapter: DateAdapter<Date>) {
         /** 
          * @todo Figure out a way to cache the iconset so that the browser doesn't dowmload the iconset again
          * */
-        matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('https://chan4077.github.io/res/mdi.svg'));
+		matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('https://chan4077.github.io/res/mdi.svg'));
         /**
          * Sets to US locale
          * @todo Add a preference to set the date locale
          */
-        dateAdapter.setLocale('en-us');
-    }
+		dateAdapter.setLocale('en-us');
+	}
 }

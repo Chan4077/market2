@@ -1,6 +1,6 @@
 <h2 matDialogTitle>Preferences</h2>
-<mat-dialog-content>
-    <mat-tab-group dynamicHeight mat-stretch-tabs>
+<mat-dialog-content fxLayout="column">
+    <mat-tab-group dynamicHeight md-stretch-tabs>
         <mat-tab label="General">
             <h2>General Preferences</h2>
             <mat-checkbox [(ngModel)]="settings.isDarkTheme">Enable Dark Mode</mat-checkbox>
@@ -32,7 +32,7 @@
             <br>
             <mat-form-field fxFlex color="accent">
                 <input matInput [matDatepicker]="birthdayPicker" placeholder="Birthday" required [(ngModel)]="settings.birthday">
-                <mat-datepicker-toggle [for]="birthdayPicker" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker-toggle matSuffix [for]="birthdayPicker"></mat-datepicker-toggle>
             </mat-form-field>
             <mat-datepicker #birthdayPicker startView="year" [touchUi]="isMobile"></mat-datepicker>
         </mat-tab>

@@ -1,3 +1,4 @@
+import { Settings } from './settings';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Shared } from './shared';
 import { NewPostDialog } from './dialogs/newpost.component';
@@ -18,158 +19,142 @@ import { UrlDialogService } from './services/urldialog.service';
 declare let ga: Function;
 
 @Component({
-    selector: 'market2-app',
-    templateUrl: './app.component.html',
-    providers: [SidenavService]
+	selector: 'market2-app',
+	templateUrl: './app.component.html',
+	providers: [SidenavService]
 })
 
 export class AppComponent implements OnInit {
-    lastSeen: Date = new Date();
-    sidenavLinks: Links[];
-    isDarkTheme: boolean = false;
-    showGreeting: boolean = true;
-    showSpinner: boolean;
-    settings: any;
-    timeLoggedIn: number;
-    chats: any;
-    @ViewChild('left') public leftSidenav;
-    constructor(private sidenavService: SidenavService, private dialog: MatDialog, private overlayContainer: OverlayContainer, private snackbar: MatSnackBar, private router: Router, private urlDialogService: UrlDialogService, private shared: Shared, private dom: DomSanitizer) {
-        this.router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
-                ga('set', 'page', event.urlAfterRedirects);
-                ga('send', 'pageview');
-            }
-        })
-    }
+	lastSeen: Date = new Date();
+	sidenavLinks: Links[];
+	isDarkTheme: boolean = false;
+	showGreeting: boolean = true;
+	showSpinner: boolean;
+	settings: Settings;
+	timeLoggedIn: number;
+	chats: any;
+	@ViewChild('left') public leftSidenav;
+	constructor(private sidenavService: SidenavService, private dialog: MatDialog, private overlayContainer: OverlayContainer, private snackbar: MatSnackBar, private router: Router, private urlDialogService: UrlDialogService, private shared: Shared, private dom: DomSanitizer) {
+		this.router.events.subscribe(event => {
+			if (event instanceof NavigationEnd) {
+				ga('set', 'page', event.urlAfterRedirects);
+				ga('send', 'pageview');
+			}
+		})
+	}
     /**
      * Refreshes the current page
      */
-    refresh() {
-        let dialogRef = this.shared.openConfirmDialog({msg: this.dom.bypassSecurityTrustHtml('<p>Do you want to refresh the app?</p> <br><p>All unsaved changes will be lost.</p>'), isHtml: true});
-        dialogRef.afterClosed().subscribe(result => {
-            if (result == 'ok') {
-                window.location.reload(true);
-            }
-        })
-    }
+	refresh() {
+		let dialogRef = this.shared.openConfirmDialog({ msg: this.dom.bypassSecurityTrustHtml('<p>Do you want to refresh the app?</p> <br><p>All unsaved changes will be lost.</p>'), isHtml: true });
+		dialogRef.afterClosed().subscribe(result => {
+			if (result == 'ok') {
+				window.location.reload(true);
+			}
+		})
+	}
     /**
      * Opens the settings dialog
      */
-    openSettings() {
-        let dialogRef = this.dialog.open(SettingsDialog);
-        dialogRef.afterClosed().subscribe(result => {
-            if (result instanceof Array || result instanceof Object) {
-                console.dir(JSON.stringify(result));
-                localStorage.setItem('settings', JSON.stringify(result));
-                console.log('User clicked save. Saving settings to localStorage...');
-				let snackBarRef = this.snackbar.open('Preferences saved.', 'Reload', { duration: 5000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] });
-				snackBarRef.onAction().subscribe(_ => {
-					window.location.reload(true);
-				})
-            } else if (result == 'cancel') {
-                // Sets localStorage settings to value on `ngOnInit()`
-                localStorage.setItem('settings', JSON.stringify(this.settings));
-                console.log('User clicked cancel. Reverting to initial settings in localStorage.');
-                this.snackbar.open('Settings were reverted', null, { duration: 5000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] });
-            } else if (result == 'clear') {
-                // Do nothing
-                console.log('Settings cleared!');
-            }
-        })
+	openSettings() {
+		this.dialog.open(SettingsDialog);
 	}
 	/**
 	 * Gets the sidenav mode
 	 * @returns {string}
 	 */
-    getSidenavMode(): string {
-        if (this.shared.isMobile()) {
-            return "over";
-        } else {
-            return "side";
-        }
-    }
+	getSidenavMode(): string {
+		if (this.shared.isMobile()) {
+			return "over";
+		} else {
+			return "side";
+		}
+	}
     /**
      * Requests the user via a dialog whether to go to a URL
      * @param {string} url The url to go to
      */
-    openUrl(url: string) {
-        this.urlDialogService.goToUrl(url);
-    }
+	openUrl(url: string) {
+		this.urlDialogService.goToUrl(url);
+	}
     /**
      * Opens a dialog which shows what dependency versions that the app used
 	 * @todo Add actual functionality
 	 */
-    showVersionInfo() {
-        this.dialog.open(VersionDialog);
-    }
+	showVersionInfo() {
+		this.dialog.open(VersionDialog);
+	}
     /**
      * Gets the links for the sidenav
      */
-    getLinks() {
-        this.sidenavService.getLinks().then(sidenavLinks => this.sidenavLinks = sidenavLinks);
-    }
+	getLinks() {
+		this.sidenavService.getLinks().then(sidenavLinks => this.sidenavLinks = sidenavLinks);
+	}
     /**
 	 * Shows a snackbar when the user switches pages
 	 * @param {string} name The name of the page that the user switched to
      */
-    switchSite(name: string): void {
-        this.snackbar.open("Navigated to " + name, null, { duration: 3000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] });
-    }
+	switchSite(name: string): void {
+		this.snackbar.open("Navigated to " + name, null, { duration: 3000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] });
+	}
     /**
 	 * Adds an item to the (virtual) Market
      */
-    addItem() {
-        let dialogRef = this.dialog.open(NewPostDialog);
-        dialogRef.afterClosed().subscribe(result => {
-            /** @todo Update this */
-            console.log(result);
-        })
-    }
+	addItem() {
+		let dialogRef = this.dialog.open(NewPostDialog);
+		dialogRef.afterClosed().subscribe(result => {
+			/** @todo Update this */
+			console.log(result);
+		})
+	}
     /**
      * On init code
      * @version 1.0.2
      * @author Edric Chan
      * @description Init code which is required when `AppComponent` implements `OnInit`
      */
-    ngOnInit(): void {
-        this.chats = [
-            {avatar: 'assets/avatars/default-avatar.png', name: 'Lorem ipsum', lastMessage: 'Hey there! Can I lend something from you?', lastSeen: this.lastSeen.toLocaleTimeString(), isUnread: true, unreadBadge: 198},
-            {avatar: 'assets/avatars/default-avatar.png', name: 'Lorem ipsum', lastMessage: 'Hey there! Can I lend something from you?', lastSeen: this.lastSeen.setTime(this.lastSeen.getTime() - 2).toLocaleString(), isUnread: true, unreadBadge: 32},
-            {avatar: 'assets/avatars/default-avatar.png', name: 'Lorem ipsum', lastMessage: 'Hey there! Can I lend something from you?', lastSeen: this.lastSeen.toLocaleTimeString(), isReceived: true},
-            {avatar: 'assets/avatars/default-avatar.png', name: 'Lorem ipsum', lastMessage: 'Hey there! Can I lend something from you?', lastSeen: this.lastSeen.toLocaleTimeString(), isReceivedRead: true}
-        ]
+	ngOnInit() {
+		if (!this.settings) {
+			this.openSettings();
+		}
+		this.chats = [
+			{ avatar: 'assets/avatars/default-avatar.png', name: 'Lorem ipsum', lastMessage: 'Hey there! Can I lend something from you?', lastSeen: this.lastSeen.toLocaleTimeString(), isUnread: true, unreadBadge: 198 },
+			{ avatar: 'assets/avatars/default-avatar.png', name: 'Lorem ipsum', lastMessage: 'Hey there! Can I lend something from you?', lastSeen: this.lastSeen.setTime(this.lastSeen.getTime() - 2).toLocaleString(), isUnread: true, unreadBadge: 32 },
+			{ avatar: 'assets/avatars/default-avatar.png', name: 'Lorem ipsum', lastMessage: 'Hey there! Can I lend something from you?', lastSeen: this.lastSeen.toLocaleTimeString(), isReceived: true },
+			{ avatar: 'assets/avatars/default-avatar.png', name: 'Lorem ipsum', lastMessage: 'Hey there! Can I lend something from you?', lastSeen: this.lastSeen.toLocaleTimeString(), isReceivedRead: true }
+		]
         /**
          * Sets the timer
          * @see Observable#timer
          * @version 1.0.2
          */
-        let timer = Observable.timer(0, 1000);
-        // Susbscribe to the timer (t) and set timeloggedin to t
-        timer.subscribe(t => this.timeLoggedIn = t);
-        // Gets links
-        this.getLinks();
-        // Sets settings to either parsed JSON of localStorage `settings` or initializes it
-        this.settings = JSON.parse(localStorage.getItem('settings')) || { 'isDarkTheme': false, 'email': 'johnappleseed@gmail.com', 'name': 'John Appleseed', 'birthday': '2017-03-04', 'showDeveloper': false, 'showGreeting': true };
-        // Logs to the console what settings are
-        console.log(this.settings);
-        // Sets darktheme to settings.isdarktheme
-        this.isDarkTheme = this.settings.isDarkTheme;
-        // Show 
-        this.showGreeting = this.settings.showGreeting;
-        console.log(this.isDarkTheme);
-        if (this.isDarkTheme) {
-            this.overlayContainer.getContainerElement().className = 'dark-theme';
-        } else {
-            this.overlayContainer.getContainerElement().className = null;
-        }
-        this.showSpinner = true;
-        setTimeout(() => {
-            this.showSpinner = false;
-            if (this.showGreeting) {
-                this.snackbar.open('Signed in as '+this.settings.email, null, { duration: 3000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] })
-            }
-        }, 3000);
-        // this.subscription = this.fabService.actionStream.subscribe(event => this.events.push(event));
-        
-    }
+		let timer = Observable.timer(0, 1000);
+		// Susbscribe to the timer (t) and set timeloggedin to t
+		timer.subscribe(t => this.timeLoggedIn = t);
+		// Gets links
+		this.getLinks();
+		// Sets settings to either parsed JSON of localStorage `settings` or initializes it
+		this.settings = <Settings>JSON.parse(localStorage.getItem('settings')) || { 'isDarkTheme': false, 'email': 'johnappleseed@gmail.com', 'name': 'John Appleseed', 'birthday': '2017-03-04', 'showDeveloper': false, 'showGreeting': true };
+		// Logs to the console what settings are
+		console.log(this.settings);
+		// Sets darktheme to settings.isdarktheme
+		this.isDarkTheme = this.settings.isDarkTheme;
+		// Show 
+		this.showGreeting = this.settings.showGreeting;
+		console.log(this.isDarkTheme);
+		if (this.isDarkTheme) {
+			this.overlayContainer.getContainerElement().className = 'dark-theme';
+		} else {
+			this.overlayContainer.getContainerElement().className = null;
+		}
+		this.showSpinner = true;
+		setTimeout(() => {
+			this.showSpinner = false;
+			if (this.showGreeting) {
+				this.snackbar.open('Signed in as ' + this.settings.email, null, { duration: 3000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] })
+			}
+		}, 3000);
+		// this.subscription = this.fabService.actionStream.subscribe(event => this.events.push(event));
+
+	}
 }

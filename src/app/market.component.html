@@ -19,8 +19,8 @@
                     <mat-icon svgIcon="alert"></mat-icon>
                     <span>Report Abuse</span>
                 </button>
-                <button mat-menu-item>
-                    <mat-icon svgIcon="thumb-down" (click)="showFewerPosts(item.user)"></mat-icon>
+                <button mat-menu-item (click)="showFewerPosts(item.user)">
+                    <mat-icon svgIcon="thumb-down"></mat-icon>
                     <span>Show fewer posts from {{item.user}}</span>
                 </button>
                 <button mat-menu-item (click)="blockUser(item.user)">
@@ -30,7 +30,7 @@
             </mat-menu>
         </mat-card-header>
         <img mat-card-image [alt]="item.name" [src]="'assets/items/' + item.imgSource" *ngIf="item.hasImage">
-        <mat-card-title class="mat-h5">{{item.name}}</mat-card-title>
+        <mat-card-title>{{item.name}}</mat-card-title>
         <mat-card-content>
             {{item.description}}
             <br>
@@ -38,36 +38,40 @@
         </mat-card-content>
         <mat-card-actions>
             <button mat-raised-button color="primary">Buy</button>
-            <button mat-button color="accent">More info</button>
+            <button mat-raised-button color="accent">More info</button>
             <span fxFlex></span>
             <button mat-icon-button color="primary" matTooltip="{{commentIsHidden(item.id) ? 'Hide' : 'Show'}} Comments" matTooltipPosition="left" (click)="showComment(item.id)">
                 <mat-icon svgIcon="comment"></mat-icon>
             </button>
-        </mat-card-actions>
-        <div class="market-card-comments" [hidden]="commentIsHidden(item.id)">
-            <mat-list>
-                <mat-list-item *ngFor="let comment of item.comments; let i=index;">
-                    <img mat-list-avatar [src]="comment.avatar" *ngIf="comment.avatar">
-                    <h4 matLine>{{comment.author}}</h4>
-                    <p matLine>{{comment.comment}}</p>
-                    <button mat-icon-button (click)="reply(comment)"><mat-icon svgIcon="message-reply"></mat-icon></button>
-                </mat-list-item>
-            </mat-list>
-            <div>
-                <br>
-                <span>It looks like you reached the end.</span>
-                <br>
-                <span (click)="showNewComment(item.id)" style="text-decoration: underline; cursor: pointer; color: blue;">Post one?</span>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="mat-card-new-comment" [hidden]="newCommentIsHidden(item.id)">
-                <mat-form-field color="primary">
-                    <input matInput [(ngModel)]="newComment" placeholder="Comment" required>
-                    <mat-error>This is required</mat-error>
-                </mat-form-field>
-                <button mat-button (click)="showNewComment(item.id, true)">Cancel</button>
-                <button mat-button (click)="postComment(newComment)">Post</button>
-            </div>
-        </div>
+		</mat-card-actions>
+		<mat-card-footer [hidden]="commentIsHidden(item.id)">
+			<div class="market-card-comments">
+				<mat-list>
+					<mat-list-item *ngFor="let comment of item.comments; let i=index;">
+						<img mat-list-avatar [src]="comment.avatar" *ngIf="comment.avatar">
+						<h4 matLine>{{comment.author}}</h4>
+						<p matLine>{{comment.comment}}</p>
+						<button mat-icon-button (click)="reply(comment)"><mat-icon svgIcon="message-reply"></mat-icon></button>
+					</mat-list-item>
+				</mat-list>
+				<div class="market-card-comments-end">
+					<br>
+					<span>It looks like you reached the end.</span>
+					<br>
+					<span (click)="showNewComment(item.id)" style="text-decoration: underline; cursor: pointer; color: blue;">Post one?</span>
+				</div>
+				<mat-divider></mat-divider>
+				<div class="market-card-new-comment" [hidden]="newCommentIsHidden(item.id)" fxLayout="row">
+					<form #newCommentForm="ngForm">
+						<mat-form-field color="primary" fxFlex="50">
+							<input matInput [(ngModel)]="newComment" placeholder="Comment" required name="newComment">
+							<mat-error>This is required</mat-error>
+						</mat-form-field>
+						<button mat-button (click)="showNewComment(item.id, true)" fxFlex="25">Cancel</button>
+						<button mat-button (click)="postComment(newComment)" fxFlex="25" [disabled]="newCommentForm.invalid">Post</button>
+					</form>
+				</div>
+			</div>
+		</mat-card-footer>
     </mat-card>
 </div>

@@ -1,10 +1,9 @@
-import { Settings } from './settings';
+import { Settings, Links } from './interfaces';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Shared } from './shared';
 import { NewPostDialog } from './dialogs/newpost.component';
 import { Component, OnInit, ViewContainerRef, Inject, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { Links } from './sidenav';
 import { MatDialog, MatDialogRef, MatDialogConfig, MatSnackBar, MatSnackBarRef } from '@angular/material';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Router, NavigationEnd } from '@angular/router';

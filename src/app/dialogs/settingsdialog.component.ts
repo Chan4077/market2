@@ -1,4 +1,4 @@
-import { Settings } from './../settings';
+import { Settings } from './../interfaces';
 import { Shared } from '../shared';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';

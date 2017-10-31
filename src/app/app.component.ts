@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
 	timeLoggedIn: number;
 	chats: any;
 	@ViewChild('left') public leftSidenav;
-	constructor(private sidenavService: SidenavService, private dialog: MatDialog, private overlayContainer: OverlayContainer, private snackbar: MatSnackBar, private router: Router, private urlDialogService: UrlDialogService, private shared: Shared, private dom: DomSanitizer) {
+	constructor(private sidenavService: SidenavService, private dialog: MatDialog, private overlayContainer: OverlayContainer, private snackbar: MatSnackBar, public router: Router, private urlDialogService: UrlDialogService, private shared: Shared, private dom: DomSanitizer) {
 		this.router.events.subscribe(event => {
 			if (event instanceof NavigationEnd) {
 				ga('set', 'page', event.urlAfterRedirects);

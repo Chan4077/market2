@@ -1,4 +1,4 @@
-import { Links } from '../sidenav';
+import { Links } from '../interfaces';
 export const LINKS: Links[] = [
     {
         name: "My Account",

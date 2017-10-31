@@ -2,10 +2,10 @@ import { TestpageComponent } from './testpage/testpage.component';
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 // App components
-import { AboutComponent } from './about.component';
-import { PageNotFoundComponent } from './page-not-found.component';
-import { MarketComponent, NewestMarketSortComponent, PopularMarketSortComponent } from './market.component';
-import { AccountComponent } from './account.component';
+import { AboutComponent } from './about/about.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MarketComponent, NewestMarketSortComponent, PopularMarketSortComponent } from './market/market.component';
+import { AccountComponent } from './account/account.component';
 /**
  * Routes used for routing the app
  */

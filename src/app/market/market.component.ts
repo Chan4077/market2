@@ -1,12 +1,11 @@
-import { Settings } from './settings';
+import { Settings, Item } from '../interfaces';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Shared } from './shared';
+import { Shared } from '../shared';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 // Marketitem service
-import { MarketItemService } from './services/marketitem.service';
-import { Item } from './marketitems';
-import { MoreInfoDialog } from './dialogs/moreinfo.component';
+import { MarketItemService } from '../services/marketitem.service';
+import { MoreInfoDialog } from '../dialogs/moreinfo.component';
 // Angularfire2
 // import { AngularFire } from 'angularfire2';
 @Component({
@@ -125,13 +124,13 @@ export class MarketComponent implements OnInit {
 }
 @Component({
 	selector: 'sort-popular-market',
-	templateUrl: './market-sort/popularsort.component.html'
+	templateUrl: '../market-sort/popularsort.component.html'
 })
 export class PopularMarketSortComponent { }
 
 @Component({
 	selector: 'sort-newest-market',
-	templateUrl: './market-sort/newestsort.component.html'
+	templateUrl: '../market-sort/newestsort.component.html'
 })
 export class NewestMarketSortComponent { }
 

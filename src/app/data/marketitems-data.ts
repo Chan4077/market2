@@ -1,4 +1,4 @@
-import { Item } from '../marketitems';
+import { Item } from '../interfaces';
 
 export const ITEMS: Item[] = [
     {

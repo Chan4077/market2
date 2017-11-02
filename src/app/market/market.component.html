@@ -1,7 +1,7 @@
 <div class="card-container">
     <mat-card *ngFor="let item of marketItems">
         <mat-card-header>
-            <img mat-card-avatar src="/assets/avatars/{{item.userAvatar}}" onerror="this.src='/assets/avatars/default-avatar.png'">
+            <img mat-card-avatar src="/assets/avatars/{{item.avatarSrc}}" onerror="this.src='/assets/avatars/default-avatar.png'">
             <mat-card-title *ngIf="item.user !=''">{{item.user}}</mat-card-title>
             <mat-card-title *ngIf="item.user == ''" class="red-color">Unknown</mat-card-title>
             <mat-card-subtitle *ngIf="item.job != ''">{{item.job}}</mat-card-subtitle>

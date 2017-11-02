@@ -49,6 +49,11 @@ export interface Item {
 	 */
 	hasAvatar?: boolean;
 	/**
+	 * The avatar image source
+	 * @type {string}
+	 */
+	avatarSrc?: string;
+	/**
 	 * The user of the item
 	 * @type {string}
 	 */

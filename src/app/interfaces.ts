@@ -89,34 +89,34 @@ export interface Settings {
 	 * Whether dark theme is enabled
 	 * @type {boolean}
 	 */
-	isDarkTheme: boolean;
+	isDarkTheme?: boolean;
 	/**
 	 * The name of the currently logged-in user
 	 * @type {string}
 	 */
-	name: string;
+	name?: string;
 	/**
 	 * The email of the currently logged-in user
 	 * @type {string}
 	 */
-	email: string;
+	email?: string;
 	/**
 	 * The birthday of the currently logged-in user
 	 * @type {Date|any}
 	 */
-	birthday: Date | any;
+	birthday?: Date | any;
 	/**
 	 * Whether to enable developer settings
 	 * @todo Add basic functionality
 	 * @type {boolean}
 	 */
-	showDeveloper: boolean;
+	showDeveloper?: boolean;
 	/**
 	 * Whether to show the app's logo with a progress spinner on load
 	 * @todo Rename this property
 	 * @type {boolean}
 	 */
-	showGreeting: boolean;
+	showGreeting?: boolean;
 }
 export interface Links {
 	/**

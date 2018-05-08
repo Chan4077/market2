@@ -1,14 +1,20 @@
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { Injectable, Component, OnInit, ViewChild, DoCheck } from '@angular/core';
-import { MatSnackBarConfig, MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
-import { MatSelectionList } from '@angular/material/list';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { ComponentType } from '@angular/cdk/portal';
+import { Injectable, Component, OnInit, ViewChild, NgModule } from '@angular/core';
+import { MatSnackBarConfig, MatSnackBar, MatSnackBarRef, SimpleSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
+import { MatCommonModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectionList, MatListModule } from '@angular/material/list';
+import { BreakpointObserver, LayoutModule } from '@angular/cdk/layout';
+import { ComponentType, PortalModule } from '@angular/cdk/portal';
 import { Title, SafeHtml } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 @Injectable()
-export class Shared {
+export class SharedInjectable {
 	private currentUser: string;
 	constructor(private snackBar: MatSnackBar, private dialog: MatDialog, private title: Title, private breakpointObserver: BreakpointObserver) { }
 	/**
@@ -26,7 +32,7 @@ export class Shared {
 	 * @param {SnackBarConfig} opts The options of the snackBar
 	 */
 	public openSnackBar(opts: SnackBarConfig) {
-		this.handleSnackBar(opts);
+		return this.handleSnackBar(opts);
 	}
 	/**
 	 * Opens a snackBar with the specified params and a return of the snackBar's ref (for component)
@@ -40,33 +46,10 @@ export class Shared {
 	 * Opens a snackBar with the specified params and a return of the snackBar's ref (not for component)
 	 * @param {SnackBarConfig} opts The options of the snackBar
 	 * @returns {MatSnackBar<SimpleSnackBar>}
+	 * @deprecated Use `openSnackBar` instead; kept to prevent breaking changes
 	 */
 	public openSnackBarWithRef(opts: SnackBarConfig): MatSnackBarRef<SimpleSnackBar> {
-		return this.handleSnackBarWithRef(opts);
-	}
-	/**
-	 * Handling of the snackBar
-	 * @param {SnackBarConfig} opts The snackBar config
-	 * @private
-	 */
-	private handleSnackBar(opts: SnackBarConfig) {
-		if (opts) {
-			if (opts.component) {
-				if (opts.additionalOpts) {
-					this.snackBar.openFromComponent(opts.component, opts.additionalOpts);
-				} else {
-					this.snackBar.openFromComponent(opts.component);
-				}
-			} else {
-				if (opts.action) {
-					this.snackBar.open(opts.msg, opts.action, opts.additionalOpts);
-				} else {
-					this.snackBar.open(opts.msg, undefined, opts.additionalOpts);
-				}
-			}
-		} else {
-			this.throwError("message", "string");
-		}
+		return this.handleSnackBar(opts);
 	}
 	/**
 	 * Handles a snackBar with a snackBarref if the developer needs a return
@@ -74,7 +57,7 @@ export class Shared {
 	 * @returns {MatSnackBarRef<SimpleSnackBar>}
 	 * @private
 	 */
-	private handleSnackBarWithRef(opts: SnackBarConfig): MatSnackBarRef<SimpleSnackBar> {
+	private handleSnackBar(opts: SnackBarConfig): MatSnackBarRef<SimpleSnackBar> {
 		if (opts) {
 			if (opts.action) {
 				let snackBarRef = this.snackBar.open(opts.msg, opts.action, opts.additionalOpts);
@@ -122,16 +105,16 @@ export class Shared {
 		if (opts) {
 			if (opts.panelClass) {
 				if (opts.backdropClass) {
-					let dialogRef = this.dialog.open(AlertDialog, {panelClass: opts.panelClass, backdropClass: opts.backdropClass});
+					let dialogRef = this.dialog.open(AlertDialog, { panelClass: opts.panelClass, backdropClass: opts.backdropClass });
 					dialogRef.componentInstance.alertConfig = opts;
 					return dialogRef;
 				} else {
-					let dialogRef = this.dialog.open(AlertDialog, {panelClass: opts.panelClass});
+					let dialogRef = this.dialog.open(AlertDialog, { panelClass: opts.panelClass });
 					dialogRef.componentInstance.alertConfig = opts;
 					return dialogRef;
 				}
 			} else if (opts.backdropClass) {
-				let dialogRef = this.dialog.open(AlertDialog, {backdropClass: opts.backdropClass});
+				let dialogRef = this.dialog.open(AlertDialog, { backdropClass: opts.backdropClass });
 				dialogRef.componentInstance.alertConfig = opts;
 				return dialogRef;
 			} else {
@@ -270,7 +253,7 @@ export class Shared {
 	}
 }
 
-
+//#region Shared components
 @Component({
 	selector: 'alert-dialog',
 	templateUrl: './partials/alertdialog.shared.html'
@@ -337,7 +320,7 @@ export class PromptDialog implements OnInit {
 	selector: 'selection-dialog',
 	templateUrl: './partials/selectiondialog.shared.html'
 })
-export class SelectionDialog implements OnInit, DoCheck {
+export class SelectionDialog implements OnInit {
 	@ViewChild('selection') selection: MatSelectionList;
 	constructor(private dialogRef: MatDialogRef<SelectionDialog>) {
 	}
@@ -353,9 +336,9 @@ export class SelectionDialog implements OnInit, DoCheck {
 	ok() {
 		this.dialogRef.close(this.selection.selectedOptions.selected);
 	}
-	ngDoCheck() {
-	}
 }
+//#endregion
+//#region Shared interfaces
 export interface SnackBarConfig {
 	/**
 	 * The message for the snackBar
@@ -497,3 +480,38 @@ export interface SelectionDialogOptions {
 	 */
 	selected?: boolean;
 }
+//#endregion
+const SHARED_DIALOGS = [
+	AlertDialog,
+	ConfirmDialog,
+	PromptDialog,
+	SelectionDialog
+];
+//#region Shared module
+@NgModule({
+	exports: [
+		SHARED_DIALOGS
+	],
+	providers: [
+		SharedInjectable
+	],
+	imports: [
+		CommonModule,
+		MatCommonModule,
+		MatButtonModule,
+		MatDialogModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatListModule,
+		MatSnackBarModule,
+		FormsModule
+	],
+	entryComponents: [
+		SHARED_DIALOGS
+	],
+	declarations: [
+		SHARED_DIALOGS
+	]
+})
+export class SharedModule { }
+//#endregion

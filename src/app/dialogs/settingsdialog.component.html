@@ -1,49 +1,61 @@
 <h2 matDialogTitle>Preferences</h2>
 <mat-dialog-content fxLayout="column">
-    <mat-tab-group dynamicHeight md-stretch-tabs>
-        <mat-tab label="General">
-            <h2>General Preferences</h2>
-            <mat-checkbox [(ngModel)]="settings.isDarkTheme">Enable Dark Mode</mat-checkbox>
-            <br>
-            <mat-checkbox [(ngModel)]="settings.showGreeting">Show Greeting on load</mat-checkbox>
-            <br>
-            <mat-checkbox [(ngModel)]="settings.openNewTab" color="primary">Open links in a new tab</mat-checkbox>
-            <br>
-            <mat-checkbox [(ngModel)]="settings.resetWarnings">Reset Warnings</mat-checkbox>
+    <mat-tab-group dynamicHeight mat-stretch-tabs>
+        <mat-tab fxLayout="column">
+			<ng-template matTabLabel>
+				<div class="tab-label">
+					<span class="tab-label-icon" aria-hidden="true"><mat-icon></mat-icon></span>
+					<span class="tab-label-text">GENERAL</span>
+				</div>
+			</ng-template>
+			<div fxLayout="column">
+				<h2>General Preferences</h2>
+				<mat-checkbox [(ngModel)]="settings.isDarkTheme" class="checkbox">Enable Dark Mode</mat-checkbox>
+				<br>
+				<mat-checkbox [(ngModel)]="settings.showGreeting" class="checkbox">Show Greeting on load</mat-checkbox>
+				<br>
+				<mat-checkbox [(ngModel)]="settings.openNewTab" color="primary" class="checkbox">Open links in a new tab</mat-checkbox>
+				<br>
+				<mat-checkbox [(ngModel)]="settings.resetWarnings" class="checkbox">Reset Warnings</mat-checkbox>
+			</div>
         </mat-tab>
         <mat-tab label="Account">
-            <h2>Account Preferences</h2>
-            <strong>Name</strong>
-            <br>
-            <mat-form-field fxFlex>
-                <input matInput placeholder="Name" [(ngModel)]="settings.name" required/>
-                <mat-error>This is required.</mat-error>
-            </mat-form-field>
-            <br>
-            <strong>Email</strong>
-            <br>
-            <mat-form-field fxFlex>
-                <input matInput placeholder="Email" type="email" [(ngModel)]="settings.email" [formControl]="emailFormControl">
-                <mat-error *ngIf="emailFormControl.hasError('required')">This is required.</mat-error>
-                <mat-error *ngIf="emailFormControl.hasError('pattern')">Please enter a valid email address.</mat-error>
-            </mat-form-field>
-            <br>
-            <strong>Birthday</strong>
-            <br>
-            <mat-form-field fxFlex color="accent">
-                <input matInput [matDatepicker]="birthdayPicker" placeholder="Birthday" required [(ngModel)]="settings.birthday">
-                <mat-datepicker-toggle matSuffix [for]="birthdayPicker"></mat-datepicker-toggle>
-            </mat-form-field>
-            <mat-datepicker #birthdayPicker startView="year" [touchUi]="isMobile"></mat-datepicker>
+			<div fxLayout="column">
+				<h2>Account Preferences</h2>
+				<strong>Name</strong>
+				<br>
+				<mat-form-field fxFlex>
+					<input matInput placeholder="Name" [(ngModel)]="settings.name" required/>
+					<mat-error>This is required.</mat-error>
+				</mat-form-field>
+				<br>
+				<strong>Email</strong>
+				<br>
+				<mat-form-field fxFlex>
+					<input matInput placeholder="Email" type="email" [(ngModel)]="settings.email" [formControl]="emailFormControl">
+					<mat-error *ngIf="emailFormControl.hasError('required')">This is required.</mat-error>
+					<mat-error *ngIf="emailFormControl.hasError('pattern')">Please enter a valid email address.</mat-error>
+				</mat-form-field>
+				<br>
+				<strong>Birthday</strong>
+				<br>
+				<mat-form-field fxFlex color="accent">
+					<input matInput [matDatepicker]="birthdayPicker" placeholder="Birthday" required [(ngModel)]="settings.birthday">
+					<mat-datepicker-toggle matSuffix [for]="birthdayPicker"></mat-datepicker-toggle>
+					<mat-datepicker #birthdayPicker startView="year" [touchUi]="isMobile"></mat-datepicker>
+				</mat-form-field>
+			</div>
         </mat-tab>
         <mat-tab label="Experimental">
-            <h2>Experimental Preferences</h2>
-            <br>
-            <mat-form-field>
-                <input matInput placeholder="Duration of toasts in milliseconds" value="1000" [(ngModel)]="settings.durationToasts">
-            </mat-form-field>
-            <br>
-            <mat-checkbox [(ngModel)]="settings.newPost" color="warn">Enable New Post</mat-checkbox>
+			<div fxLayout="column">
+				<h2>Experimental Preferences</h2>
+				<br>
+				<mat-form-field>
+					<input matInput placeholder="Duration of toasts in milliseconds" value="1000" [(ngModel)]="settings.durationToasts">
+				</mat-form-field>
+				<br>
+				<mat-checkbox [(ngModel)]="settings.newPost" color="warn" class="checkbox">Enable New Post</mat-checkbox>
+			</div>
         </mat-tab>
     </mat-tab-group>
     <p class="note">Please refresh your page to apply changes.</p>

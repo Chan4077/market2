@@ -1,14 +1,16 @@
 import 'hammerjs';
 import { ReCaptchaModule } from "angular2-recaptcha";
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { Shared, AlertDialog, ConfirmDialog, PromptDialog, SelectionDialog } from './shared';
+import { SharedModule } from './shared';
 import { MatIconRegistry, DateAdapter } from "@angular/material";
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MarketMaterialModule } from './market.module';
 import { RouterModule, Routes } from '@angular/router';
-// import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // App components
 import { MarketComponent, NewestMarketSortComponent, MarketNavComponent, PopularMarketSortComponent, ReplyDialog } from './market/market.component';
@@ -39,11 +41,7 @@ const DIALOGS = [
 	MoreInfoDialog,
 	VersionDialog,
 	UrlDialog,
-	ReplyDialog,
-	AlertDialog,
-	PromptDialog,
-	ConfirmDialog,
-	SelectionDialog
+	ReplyDialog
 ]
 /**
  * The module to initialize with
@@ -71,16 +69,21 @@ const DIALOGS = [
 		MarketMaterialModule,
 		AppRouting,
 		ReactiveFormsModule,
-		// AngularFireModule.initializeApp(environment.firebase),
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFireAuthModule,
+		AngularFirestoreModule.enablePersistence(),
 		BrowserAnimationsModule,
 		FlexLayoutModule,
-		ReCaptchaModule
+		/**
+		 * @todo Remove this not needed module
+		 */
+		ReCaptchaModule,
+		SharedModule
 	],
 	providers: [
 		SidenavService,
 		MarketItemService,
-		UrlDialogService,
-		Shared
+		UrlDialogService
 	],
 	bootstrap: [AppComponent],
 	entryComponents: [

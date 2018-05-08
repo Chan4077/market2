@@ -1,52 +1,57 @@
 <h3 matDialogTitle>New Post</h3>
 <mat-dialog-content fxLayout="column">
-    <mat-form-field color="primary">
-        <input matInput [(ngModel)]="post.title" placeholder="Post Title">
-    </mat-form-field>
-    <br>
-    <mat-form-field color="primary">
-        <textarea matInput [(ngModel)]="post.text" placeholder="Post content" rows="3"></textarea>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
+	<mat-form-field color="primary" fxFlex>
+		<input matInput [(ngModel)]="post.title" placeholder="Post Title">
+	</mat-form-field>
+	<br>
+	<mat-form-field color="primary" fxFlex>
+		<textarea matInput [(ngModel)]="post.text" placeholder="Post content" rows="3"></textarea>
+	</mat-form-field>
+	<br>
+	<mat-form-field fxFlex>
 		<input type="number" matInput [(ngModel)]="post.price" placeholder="Price">
 		<span matPrefix>$&nbsp;</span>
-    </mat-form-field>
-    <br>
-    <mat-checkbox [(ngModel)]="post.hasImage">Has Image?</mat-checkbox>
-    <br>
-    <mat-chip-list>
-        <mat-chip *ngFor="let tag of post.tags" color="primary" selected="true">{{tag}}</mat-chip>
-    </mat-chip-list>
-    <mat-form-field color="accent" matTooltip="Press the enter (or return) key to add new">
-        <input #newTag matInput (keyup.enter)="addTag(newTag)" placeholder="New Tag">
-        <mat-hint>Enter a new tag that is not already here.</mat-hint>
-    </mat-form-field>
-    <span class="mat-input-error" *ngIf="isDuplicate">The chip you entered is a duplicate. Please try again.</span>
-    <button mat-button (click)="addTag(newTag)" *ngIf="newTag">Add Tag</button>
-    <mat-divider></mat-divider>
-    <h3>Preview</h3>
-    <mat-card>
-        <mat-card-header>
-            <h5 class="mat-h5">{{post.title}}</h5>
-        </mat-card-header>
-        <img mat-card-image [src]="post.img" *ngIf="post.hasImage">
-        <mat-card-content>
-            {{post.text}}
-            <br>Price: <strong class="mat-body-strong">{{post.price | currency:USD:false}}</strong>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="primary">Buy</button>
-            <button mat-button color="accent">More Info</button>
-            <span fxFlex></span>
-            <button mat-icon-button color="primary">
-                <mat-icon svgIcon="comment"></mat-icon>
-            </button>
-        </mat-card-actions>
-    </mat-card>
-    <re-captcha site_key="6LfEWScUAAAAAJpLbQ1xdT2F2ZDf8jyBAmcx8mTe"></re-captcha>
+	</mat-form-field>
+	<br>
+	<mat-checkbox [(ngModel)]="post.hasImage">Has Image?</mat-checkbox>
+	<br>
+	<mat-form-field color="accent">
+		<mat-chip-list #chipList>
+			<mat-chip *ngFor="let tag of post.tags" color="primary" [selectable]="true" [removable]="true">
+				{{tag}}
+				<mat-icon matChipRemovable svgIcon="close-circle" aria-label="Remove tag"></mat-icon>
+			</mat-chip>
+		</mat-chip-list>
+		<input [(ngModel)]="newTag" (keyup.enter)="addTag()" placeholder="New Tag" [matChipInputFor]="chipList">
+	</mat-form-field>
+	<mat-slide-toggle [(ngModel)]="showPreview">Show preview</mat-slide-toggle>
+	<br>
+	<mat-divider></mat-divider>
+	<div fxLayout="column" *ngIf="showPreview">
+		<h3>Preview</h3>
+		<mat-card>
+			<mat-card-header>
+				<h5 class="mat-h5">{{post.title}}</h5>
+			</mat-card-header>
+			<img mat-card-image [src]="post.img" *ngIf="post.hasImage">
+			<mat-card-content>
+				{{post.text}}
+				<br>Price:
+				<strong class="mat-body-strong">{{post.price | currency:'USD':false}}</strong>
+			</mat-card-content>
+			<mat-card-actions>
+				<button mat-raised-button color="primary">Buy</button>
+				<button mat-raised-button color="accent">More Info</button>
+				<span fxFlex></span>
+				<button mat-icon-button color="primary">
+					<mat-icon svgIcon="comment"></mat-icon>
+				</button>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+	<p><strong>NOTE:</strong> When you post this item to the Market, you acknoledge that this item is solely yours and that you should not upload content that is sensitive to our users. If such content is to be found, you may be temporarily banned from the server. If you continue doing so, your account may be deleted. For more information, see our <a href="javascript:void(0)">Terms and Conditions</a>.</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button matDialogClose color="primary">Cancel</button>
-    <button mat-button (click)="dialogRef.close(post)" color="primary">Post</button>
+	<button mat-button matDialogClose color="primary">Cancel</button>
+	<button mat-button (click)="addItem()" color="primary">Post</button>
 </mat-dialog-actions>

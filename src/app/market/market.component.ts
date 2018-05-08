@@ -1,6 +1,6 @@
 import { Settings, Item } from '../interfaces';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Shared } from '../shared';
+import { SharedInjectable } from '../shared';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 // Marketitem service
@@ -10,7 +10,7 @@ import { MoreInfoDialog } from '../dialogs/moreinfo.component';
 // import { AngularFire } from 'angularfire2';
 @Component({
 	selector: 'market-sort-nav',
-	templateUrl: './market-sort-nav.component.html'
+	templateUrl: '../market-sort/market-sort-nav.component.html'
 })
 export class MarketNavComponent {
 	sortLinks = [
@@ -20,15 +20,22 @@ export class MarketNavComponent {
 	]
 }
 @Component({
-	selector: 'market',
+	selector: 'app-market',
 	templateUrl: './market.component.html'
 })
 export class MarketComponent implements OnInit {
 	marketItems: Item[];
 	newCommentHidden: any = [];
 	commentHidden: any = [];
+	newComment: string;
 	settings: Settings;
-	constructor(private marketItemService: MarketItemService, private dialog: MatDialog, private shared: Shared, private dom: DomSanitizer) { }
+	constructor(
+		private marketItemService:
+		MarketItemService,
+		private dialog: MatDialog,
+		private shared: SharedInjectable,
+		private dom: DomSanitizer
+	) {}
 
 	getMarketItems() {
 		this.marketItemService.getMarketItems().then(marketItems => this.marketItems = marketItems);
@@ -61,6 +68,19 @@ export class MarketComponent implements OnInit {
 	}
 	blockUser(user: string) {
 		this.shared.openSnackBar({ msg: `${user} was successfully blocked and you will no longer see any posts from ${user}.`, action: "Undo", additionalOpts: { duration: 7000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] } });
+	}
+	buy(item: Item) {
+		let dialogRef = this.shared.openConfirmDialog({ msg: `You are going to buy ${item.name} from ${item.user} which costs $${item.price}. Do you want to buy the item?`, ok: "Buy & Checkout", title: "" });
+		dialogRef.afterClosed().subscribe(result => {
+			if (result == 'ok') {
+				let snackBarRef = this.shared.openSnackBarWithRef({ msg: `${item.name} was added to cart`, action: "Undo", additionalOpts: { horizontalPosition: "start", duration: 7000, extraClasses: ['mat-elevation-z3'] } });
+				snackBarRef.onAction().subscribe(() => {
+					// TODO
+				})
+			} else {
+
+			}
+		})
 	}
 	showNewComment(index: any, showOrHide?: boolean) {
 		if (showOrHide) {
@@ -112,14 +132,16 @@ export class MarketComponent implements OnInit {
      * @version 1.2.2
      * @param {string} comment The comment to post
      */
-	postComment(comment: string) {
+	postComment() {
+		console.log(this.newComment);
 		if (this.settings) {
 			if (this.settings.email) {
 				this.shared.openSnackBar({ msg: "Your comment was posted!", action: "Undo", additionalOpts: { duration: 6000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] } });
 			} else {
-				this.shared.openAlertDialog({title: "You need to sign in/ have an account", msg: "To post a comment, please sign in to your account or create one."});
+				this.shared.openAlertDialog({ title: "You need to sign in/ have an account", msg: "To post a comment, please sign in to your account or create one." });
 			}
 		}
+		this.newComment = null;
 	}
 }
 @Component({

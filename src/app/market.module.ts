@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -43,6 +44,7 @@ const MATERIAL_MODULES = [
 	MatProgressSpinnerModule,
 	MatRippleModule,
 	MatSelectModule,
+	MatSlideToggleModule,
 	MatSnackBarModule,
 	MatSidenavModule,
 	MatTabsModule,

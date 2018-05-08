@@ -34,10 +34,10 @@
         <mat-card-content>
             {{item.description}}
             <br>
-            <strong>Price: </strong> {{item.price | currency:USD:false}}
+            <strong>Price: </strong> {{item.price | currency:'USD':false}}
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="primary">Buy</button>
+            <button mat-raised-button color="primary" (click)="buy(item)">Buy</button>
             <button mat-raised-button color="accent">More info</button>
             <span fxFlex></span>
             <button mat-icon-button color="primary" matTooltip="{{commentIsHidden(item.id) ? 'Hide' : 'Show'}} Comments" matTooltipPosition="left" (click)="showComment(item.id)">
@@ -62,13 +62,13 @@
 				</div>
 				<mat-divider></mat-divider>
 				<div class="market-card-new-comment" [hidden]="newCommentIsHidden(item.id)" fxLayout="row">
-					<form #newCommentForm="ngForm">
+					<form #newCommentForm="ngForm" fxLayout="row">
 						<mat-form-field color="primary" fxFlex="50">
 							<input matInput [(ngModel)]="newComment" placeholder="Comment" required name="newComment">
 							<mat-error>This is required</mat-error>
 						</mat-form-field>
 						<button mat-button (click)="showNewComment(item.id, true)" fxFlex="25">Cancel</button>
-						<button mat-button (click)="postComment(newComment)" fxFlex="25" [disabled]="newCommentForm.invalid">Post</button>
+						<button mat-button (click)="postComment()" fxFlex="25" [disabled]="newCommentForm.invalid">Post</button>
 					</form>
 				</div>
 			</div>

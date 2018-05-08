@@ -18,4 +18,8 @@ import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 
+/*
+Required in order for @angular/animations to work (which uses the Web Animations API)
+Installed by running `npm install web-animations-js`.
+*/
 import 'web-animations-js';

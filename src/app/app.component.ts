@@ -106,7 +106,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 	 * @param {string} name The name of the page that the user switched to
      */
 	switchSite(name: string): void {
-		this.snackbar.open("Navigated to " + name, null, { duration: 3000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] });
+		this.snackbar.open("Navigated to " + name, null, { duration: 3000, horizontalPosition: "start", panelClass: ["mat-elevation-z2"] });
 	}
     /**
 	 * Adds an item to the (virtual) Market
@@ -159,7 +159,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 		setTimeout(() => {
 			this.showSpinner = false;
 			if (this.showGreeting) {
-				this.snackbar.open('Signed in as ' + this.settings.email, null, { duration: 3000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] })
+				this.snackbar.open('Signed in as ' + this.settings.email, null, { duration: 3000, horizontalPosition: "start", panelClass: ["mat-elevation-z2"] })
 			}
 			if (!this.settings) {
 				this.openSettings();

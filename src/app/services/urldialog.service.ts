@@ -19,7 +19,7 @@ export class UrlDialogService {
 			dialogRef.afterClosed().subscribe(result => {
 				if (result == 'cancel') {
 					// Do nothing
-					this.snackbar.open('Redirect was cancelled', null, { duration: 5000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] });
+					this.snackbar.open('Redirect was cancelled', null, { duration: 5000, horizontalPosition: "start", panelClass: ["mat-elevation-z2"] });
 				} else if (result == 'redirect') {
 					if (this.settings.openNewTab) {
 						console.debug('Opening ' + url + ' in a new tab.');

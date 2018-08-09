@@ -63,7 +63,7 @@ export class NewPostDialog implements OnInit {
 	}
 	addItem() {
 		console.log(this.post);
-		let snackBarRef = this.shared.openSnackBarWithRef({ msg: "Successfully added an item to the Market. This item will eventually be public soon.", action: "Undo", additionalOpts: { horizontalPosition: "start", extraClasses: ['mat-elevation-z3'] } });
+		let snackBarRef = this.shared.openSnackBarWithRef({ msg: "Successfully added an item to the Market. This item will eventually be public soon.", action: "Undo", additionalOpts: { horizontalPosition: "start", panelClass: ['mat-elevation-z3'] } });
 		snackBarRef.onAction().subscribe(() => {
 			// TODO
 		})

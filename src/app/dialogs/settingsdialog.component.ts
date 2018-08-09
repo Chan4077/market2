@@ -47,13 +47,13 @@ export class SettingsDialog implements OnInit {
 		// Sets localStorage settings to value on `ngOnInit()`
 		localStorage.setItem('settings', JSON.stringify(this.settings));
 		console.log('User clicked cancel. Reverting to initial settings in localStorage.');
-		this.shared.openSnackBar({ msg: 'Settings were reverted', additionalOpts: { duration: 5000, horizontalPosition: "start", extraClasses: ["mat-elevation-z3"] } });
+		this.shared.openSnackBar({ msg: 'Settings were reverted', additionalOpts: { duration: 5000, horizontalPosition: "start", panelClass: ["mat-elevation-z3"] } });
 	}
 	save() {
 		this.closeDialog();
 		localStorage.setItem('settings', JSON.stringify(this.settings));
 		console.log('User clicked save. Saving settings to localStorage...');
-		let snackBarRef = this.shared.openSnackBarWithRef({ msg: 'Preferences saved.', action: 'Reload', additionalOpts: { duration: 5000, horizontalPosition: "start", extraClasses: ["mat-elevation-z3"] } });
+		let snackBarRef = this.shared.openSnackBarWithRef({ msg: 'Preferences saved.', action: 'Reload', additionalOpts: { duration: 5000, horizontalPosition: "start", panelClass: ["mat-elevation-z3"] } });
 		snackBarRef.onAction().subscribe(_ => {
 			window.location.reload(true);
 		})

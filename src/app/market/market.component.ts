@@ -59,21 +59,21 @@ export class MarketComponent implements OnInit {
 			if (result == 'cancel') {
 				// User cancelled
 			} else {
-				this.shared.openSnackBar({ msg: "Your issue was sent! Your issue will be reviewed and taken upon action if required.", action: "Undo", additionalOpts: { duration: 7000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] } });
+				this.shared.openSnackBar({ msg: "Your issue was sent! Your issue will be reviewed and taken upon action if required.", action: "Undo", additionalOpts: { duration: 7000, horizontalPosition: "start", panelClass: ["mat-elevation-z2"] } });
 			}
 		})
 	}
 	showFewerPosts(user: string) {
-		this.shared.openSnackBar({ msg: `Fewer posts will be shown from ${user} and will take effect from the next time you login.`, action: "Undo", additionalOpts: { duration: 7000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] } });
+		this.shared.openSnackBar({ msg: `Fewer posts will be shown from ${user} and will take effect from the next time you login.`, action: "Undo", additionalOpts: { duration: 7000, horizontalPosition: "start", panelClass: ["mat-elevation-z2"] } });
 	}
 	blockUser(user: string) {
-		this.shared.openSnackBar({ msg: `${user} was successfully blocked and you will no longer see any posts from ${user}.`, action: "Undo", additionalOpts: { duration: 7000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] } });
+		this.shared.openSnackBar({ msg: `${user} was successfully blocked and you will no longer see any posts from ${user}.`, action: "Undo", additionalOpts: { duration: 7000, horizontalPosition: "start", panelClass: ["mat-elevation-z2"] } });
 	}
 	buy(item: Item) {
 		let dialogRef = this.shared.openConfirmDialog({ msg: `You are going to buy ${item.name} from ${item.user} which costs $${item.price}. Do you want to buy the item?`, ok: "Buy & Checkout", title: "" });
 		dialogRef.afterClosed().subscribe(result => {
 			if (result == 'ok') {
-				let snackBarRef = this.shared.openSnackBarWithRef({ msg: `${item.name} was added to cart`, action: "Undo", additionalOpts: { horizontalPosition: "start", duration: 7000, extraClasses: ['mat-elevation-z3'] } });
+				let snackBarRef = this.shared.openSnackBarWithRef({ msg: `${item.name} was added to cart`, action: "Undo", additionalOpts: { horizontalPosition: "start", duration: 7000, panelClass: ['mat-elevation-z3'] } });
 				snackBarRef.onAction().subscribe(() => {
 					// TODO
 				})
@@ -136,7 +136,7 @@ export class MarketComponent implements OnInit {
 		console.log(this.newComment);
 		if (this.settings) {
 			if (this.settings.email) {
-				this.shared.openSnackBar({ msg: "Your comment was posted!", action: "Undo", additionalOpts: { duration: 6000, horizontalPosition: "start", extraClasses: ["mat-elevation-z2"] } });
+				this.shared.openSnackBar({ msg: "Your comment was posted!", action: "Undo", additionalOpts: { duration: 6000, horizontalPosition: "start", panelClass: ["mat-elevation-z2"] } });
 			} else {
 				this.shared.openAlertDialog({ title: "You need to sign in/ have an account", msg: "To post a comment, please sign in to your account or create one." });
 			}
